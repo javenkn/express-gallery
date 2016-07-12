@@ -1,28 +1,79 @@
+var querystring = require('querystring');
+var pug = require('pug');
 var express = require('express');
-var gallery = express();
+var path = require('path');
 
-gallery
+var Gallery = require('./Gallery');
+
+var app = express();
+
+app.set('views', path.resolve(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+// var visitorCount = 0;
+
+app
   .get('/', function (req, res) {
-    res.send('List of gallery photos.');
+    res.render('index');
   })
   .get('/gallery', function (req, res) {
-    res.send('List of gallery photos.');
+    res.render('gallery');
   })
   .get('/gallery/:id', function (req, res) {
     if(req.params.id === 'new') {
-      res.send('Gallery submission form');
+      res.render('gallery-new');
     } else {
-      res.send('Single gallery of id: ' + req.params.id);
+      if(!isNaN(parseInt(req.params.id))){
+        res.send('Single gallery of id: ' + req.params.id);
+      } else {
+        res.send('Cannot GET ' + req.params.id);
+      }
     }
   })
-  .post('/gallery', function (req, res) {
-    res.send('Create a photo.');
+  .post('/gallery/:id', function (req, res) {
+    req.on('data', function (data) {
+      var locals = querystring.parse(data.toString());
+      if(req.params.id === 'new'){
+        res.render('gallery', locals);
+      } else {
+        res.render('gallery', locals);
+      }
+    });
+    // req.on('end', function () {
+    //   var values = querystring.parse(postData);
+    //   var author = values.author;
+    //   var url = values.url;
+    //   var description = values.description;
+    //   res.send('Creating a gallery with ' + author + ', ' + url + ', ' +
+    //     description);
+    // });
+
   })
   .put('/gallery/:id', function (req, res) {
-    res.send('Update a photo.');
+    var putData = '';
+    req.on('data', function (data) {
+      putData += data;
+    });
+
+    req.on('end', function () {
+      if(!isNaN(parseInt(req.params.id))){
+        var values = querystring.parse(putData);
+        var author = values.author;
+        var url = values.url;
+        var description = values.description;
+        res.send('Updating a gallery with ' + author + ', ' + url + ', ' +
+          description);
+      } else {
+        res.send('Cannot PUT ' + req.params.id);
+      }
+    });
   })
   .delete('/gallery/:id', function (req, res) {
-    res.send('Delete a photo.');
+    if(!isNaN(parseInt(req.params.id))){
+        res.send('Deleting gallery of id: ' + req.params.id);
+    } else {
+      res.send('Cannot DELETE ' + req.params.id);
+    }
   });
 
-gallery.listen(3000);
+app.listen(3000);

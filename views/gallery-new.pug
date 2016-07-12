@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Express Gallery
+  body
+    form(type="x-www-form-urlencoded" method="POST")
+      div
+        h2 Enter the specified info:
+        div(style="margin-top: 5px") URL:
+          input(type="text" name="url" style="width: 200px; margin-left: 20px")
+        div(style="margin-top: 5px") Author:
+          input(type="text" name="author" style="width: 186px; margin-left: 20px")
+        div(style="margin-top: 5px") Description:
+          textarea(name="description" style="width: 165px; height: 100px; vertical-align: top; margin-left: 10px")
+      button(type="submit") Submit

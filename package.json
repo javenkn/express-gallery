@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/javenkn/express-gallery/issues"
   },
-  "homepage": "https://github.com/javenkn/express-gallery#readme"
+  "homepage": "https://github.com/javenkn/express-gallery#readme",
+  "dependencies": {
+    "pug": "^2.0.0-beta3"
+  }
 }
