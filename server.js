@@ -30,12 +30,17 @@ app
       }
     }
   })
+  .post('/gallery', function (req, res) {
+    req.on('data', function (data) {
+      var locals = querystring.parse(data.toString());
+        res.render('gallery', locals);
+    });
+  })
   .post('/gallery/:id', function (req, res) {
     req.on('data', function (data) {
       var locals = querystring.parse(data.toString());
+      console.log(req.params.id);
       if(req.params.id === 'new'){
-        res.render('gallery', locals);
-      } else {
         res.render('gallery', locals);
       }
     });
