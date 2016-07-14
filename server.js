@@ -49,15 +49,6 @@ app
         res.send('Cannot POST to ' + '/gallery/' + req.params.id);
       }
     });
-    // req.on('end', function () {
-    //   var values = querystring.parse(postData);
-    //   var author = values.author;
-    //   var url = values.url;
-    //   var description = values.description;
-    //   res.send('Creating a gallery with ' + author + ', ' + url + ', ' +
-    //     description);
-    // });
-
   })
   .put('/gallery/:id', function (req, res) {
     var putData = '';
