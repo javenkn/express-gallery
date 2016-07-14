@@ -10,14 +10,16 @@ var app = express();
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// var visitorCount = 0;
-
 app
   .get('/', function (req, res) {
     res.render('index');
   })
   .get('/gallery', function (req, res) {
-    res.render('gallery');
+    Gallery.get(function (err, result) {
+      var galleryEntries = JSON.parse(result);
+      console.log(galleryEntries);
+      res.render('index', { entries: galleryEntries });
+    });
   })
   .get('/gallery/:id', function (req, res) {
     if(req.params.id === 'new') {
@@ -33,15 +35,18 @@ app
   .post('/gallery', function (req, res) {
     req.on('data', function (data) {
       var locals = querystring.parse(data.toString());
-        res.render('gallery', locals);
+      Gallery.create(locals);
+      res.render('gallery', locals);
     });
   })
   .post('/gallery/:id', function (req, res) {
     req.on('data', function (data) {
       var locals = querystring.parse(data.toString());
-      console.log(req.params.id);
       if(req.params.id === 'new'){
+        Gallery.create(locals);
         res.render('gallery', locals);
+      } else {
+        res.send('Cannot POST to ' + '/gallery/' + req.params.id);
       }
     });
     // req.on('end', function () {
@@ -81,4 +86,6 @@ app
     }
   });
 
-app.listen(3000);
+var server = app.listen(3000, function () {
+  console.log(`Listening on port ${server.address().port}`);
+});

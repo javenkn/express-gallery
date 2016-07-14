@@ -5,3 +5,8 @@ head
   title Express Gallery
 body
   h1 Welcome to the gallery!
+  each val in entries
+    div
+      img(src=val.url)
+      p Uploaded by: #{val.author}
+      p Description: #{val.description}

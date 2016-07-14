@@ -8,11 +8,10 @@ module.exports = {
 
 var JSON_DATA_PATH = path.resolve('data', 'gallery.json');
 
-function getGallery() {
-  var galleries;
+function getGallery(callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
-    if(err) throw err;
-    galleries = JSON.parse(json);
+    if(err) return callback(err);
+    callback(null, json);
   });
 }
 
@@ -20,7 +19,7 @@ function addGallery(data, callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
-    galleries.push(data);
-    fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries));
+    galleries.push(data); // why does it push _locals: {}
+    fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), callback);
   });
 }
