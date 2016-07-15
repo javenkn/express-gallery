@@ -15,26 +15,26 @@ app.set('view engine', 'pug');
 
 app
   .get('/', function (req, res) {
-    Gallery.get(function (err, result) {
-      var galleryEntries = JSON.parse(result);
+    Gallery.get(function (err, results) {
+      var galleryEntries = JSON.parse(results);
       res.render('index', { entries: galleryEntries });
     });
   })
   .get('/gallery', function (req, res) {
-    Gallery.get(function (err, result) {
-      var galleryEntries = JSON.parse(result);
+    Gallery.get(function (err, results) {
+      var galleryEntries = JSON.parse(results);
       res.render('index', { entries: galleryEntries });
     });
   })
   .get('/gallery/:id', function (req, res) {
     if(req.params.id === 'new') {
       res.render('gallery-new');
+    } else if(!isNaN(parseInt(req.params.id))){
+      Gallery.getID(req.params.id, function (err, result) {
+        res.render('get-gallery', result);
+      });
     } else {
-      if(!isNaN(parseInt(req.params.id))){
-        res.send('Single gallery of id: ' + req.params.id);
-      } else {
         res.send('Cannot GET ' + req.params.id);
-      }
     }
   })
   .post('/gallery', urlencodedParser, function (req, res) {

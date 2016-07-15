@@ -2,8 +2,9 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = {
-  create: addGallery,
   get: getGallery,
+  getID: getSpecificGallery,
+  create: addGallery,
   delete: deleteGallery
 };
 
@@ -13,6 +14,18 @@ function getGallery(callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) return callback(err);
     callback(null, json);
+  });
+}
+
+function getSpecificGallery(idNumber, callback) {
+  fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
+    if(err) return callback(err);
+    var galleries = JSON.parse(json);
+    galleries.forEach(function (element, index, array) {
+      if(element.id === parseInt(idNumber)) {
+        callback(null, element);
+      }
+    });
   });
 }
 
