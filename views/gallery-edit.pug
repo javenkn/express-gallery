@@ -9,7 +9,7 @@ html(lang="en")
         img(src=url)
       div(style="margin-bottom: 5px") Uploaded by: #{author}
       div(style="margin-bottom: 5px") Description: #{description}
-    form(type="x-www-form-urlencoded" method="POST")
+    form(type="x-www-form-urlencoded" method="POST" action="/gallery/" + id + "?_method=PUT")
       div
         h2 Enter the specified info:
         div(style="margin-top: 5px") URL:
@@ -18,4 +18,4 @@ html(lang="en")
           input(type="text" name="author" style="width: 186px; margin-left: 20px" value=author)
         div(style="margin-top: 5px") Description:
           textarea(name="description" style="width: 165px; height: 100px; vertical-align: top; margin-left: 10px")= description
-      button(type="submit") Submit
+      button(type="submit") Save

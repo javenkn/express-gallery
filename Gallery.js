@@ -39,7 +39,7 @@ function addGallery(data, callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
-    var count = galleries.length+1;
+    var count = galleries.length+1; //fix id count
     data.id = count;
     galleries.push(data);
     fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
@@ -77,10 +77,11 @@ function deleteGallery(idNumber, callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
+    var removedGallery;
     galleries.forEach(function (element, index, array) {
       if(element.id === parseInt(idNumber)) {
         isFound = true;
-        galleries.splice(index,1);
+        removedGallery = galleries.splice(index,1);
       }
     });
     if(!isFound){
@@ -88,7 +89,7 @@ function deleteGallery(idNumber, callback) {
     } else {
       fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
         if(err) return callback(err);
-        callback(null, galleries);
+        callback(null, removedGallery);
       });
     }
   });

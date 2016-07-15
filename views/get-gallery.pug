@@ -11,5 +11,7 @@ html(lang="en")
       div(style="margin-bottom: 5px") Description: #{description}
       div(style="margin-bottom: 20px")
         span
-          button Edit
-          button(style="margin-left: 10px") Delete
+          form(style= "display: inline-block" method="POST" action="/gallery/" + id + "/edit?_method=GET")
+            button Edit
+          form(style= "display: inline-block" method="POST" action="/gallery/" + id + "?_method=DELETE")
+            button(style="margin-left: 10px") Delete
