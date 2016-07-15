@@ -34,9 +34,14 @@ function deleteGallery(idNumber, callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
-    var filteredGallery = galleries.filter(function (element, index, array) {
-      return element.id !== idNumber;
+    galleries.forEach(function (element, index, array) {
+      if(element.id === parseInt(idNumber)) {
+        galleries.splice(index,1);
+      }
     });
-    console.log(filteredGallery);
+    fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
+      if(err) return callback(err);
+      callback(null, galleries);
+    });
   });
 }

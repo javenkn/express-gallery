@@ -15,7 +15,10 @@ app.set('view engine', 'pug');
 
 app
   .get('/', function (req, res) {
-    res.render('index');
+    Gallery.get(function (err, result) {
+      var galleryEntries = JSON.parse(result);
+      res.render('index', { entries: galleryEntries });
+    });
   })
   .get('/gallery', function (req, res) {
     Gallery.get(function (err, result) {
@@ -35,8 +38,6 @@ app
     }
   })
   .post('/gallery', urlencodedParser, function (req, res) {
-    // count++;
-    // console.log(count);
     var locals = req.body;
     Gallery.create(locals, function (err, results) {
       res.render('gallery', results);
@@ -52,29 +53,23 @@ app
       res.send('Cannot POST to ' + '/gallery/' + req.params.id);
     }
   })
-  .put('/gallery/:id', function (req, res) {
-    var putData = '';
-    req.on('data', function (data) {
-      putData += data;
-    });
-
-    req.on('end', function () {
-      if(!isNaN(parseInt(req.params.id))){
-        var values = querystring.parse(putData);
-        var author = values.author;
-        var url = values.url;
-        var description = values.description;
-        res.send('Updating a gallery with ' + author + ', ' + url + ', ' +
-          description);
-      } else {
-        res.send('Cannot PUT ' + req.params.id);
-      }
-    });
+  .put('/gallery/:id', urlencodedParser, function (req, res) {
+    var locals = req.body;
+    if(!isNaN(parseInt(req.params.id))){
+      res.render('gallery-edit', locals);
+    } else {
+      res.send('Cannot PUT ' + req.params.id);
+    }
   })
   .delete('/gallery/:id', function (req, res) {
     if(!isNaN(parseInt(req.params.id))){
         Gallery.delete(req.params.id, function (err, results) {
-          res.render('gallery', results);
+          Gallery.get(function (err, results) {
+            var galleryEntries = JSON.parse(results);
+            console.log(galleryEntries);
+            console.log(results);
+            res.render('index', { entries: galleryEntries });
+          });
         });
     } else {
       res.send('Cannot DELETE ' + req.params.id);
