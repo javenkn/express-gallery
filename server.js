@@ -37,26 +37,46 @@ app
         res.send('Cannot GET ' + req.params.id);
     }
   })
+  .get('/gallery/:id/edit', function (req, res) {
+    if(!isNaN(parseInt(req.params.id))){
+      Gallery.getID(req.params.id, function (err, result) {
+        res.render('gallery-edit', result);
+      });
+    } else {
+        res.send('Cannot GET ' + req.params.id);
+    }
+  })
   .post('/gallery', urlencodedParser, function (req, res) {
     var locals = req.body;
     Gallery.create(locals, function (err, results) {
-      res.render('gallery', results);
+      res.render('add-gallery', results);
     });
   })
   .post('/gallery/:id', urlencodedParser, function (req, res) {
     var locals = req.body;
     if(req.params.id === 'new'){
       Gallery.create(locals, function (err, results) {
-        res.render('gallery', results);
+        res.render('add-gallery', results);
       });
     } else {
       res.send('Cannot POST to ' + '/gallery/' + req.params.id);
     }
   })
-  .put('/gallery/:id', urlencodedParser, function (req, res) {
+  .post('/gallery/:id/edit', urlencodedParser, function (req, res) {
     var locals = req.body;
     if(!isNaN(parseInt(req.params.id))){
-      res.render('gallery-edit', locals);
+      Gallery.update(req.params.id, locals, function (err, results) {
+        res.render('update-gallery', results);
+      });
+    } else {
+      res.send('Cannot POST to ' + '/gallery/' + req.params.id);
+    }
+  })
+  .put('/gallery/:id', function (req, res) {
+    if(!isNaN(parseInt(req.params.id))){
+      Gallery.getID(req.params.id, function (err, results) {
+        res.render('gallery-edit', results);
+      });
     } else {
       res.send('Cannot PUT ' + req.params.id);
     }

@@ -5,6 +5,7 @@ module.exports = {
   get: getGallery,
   getID: getSpecificGallery,
   create: addGallery,
+  update: updateGallery,
   delete: deleteGallery
 };
 
@@ -36,6 +37,23 @@ function addGallery(data, callback) {
     var count = galleries.length+1;
     data.id = count;
     galleries.push(data);
+    fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
+      if(err) return callback(err);
+      callback(null, data);
+    });
+  });
+}
+
+function updateGallery(idNumber, data, callback) {
+  fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
+    if(err) throw err;
+    var galleries = JSON.parse(json);
+    galleries.forEach(function (element, index, array) {
+      if(element.id === parseInt(idNumber)) {
+        data.id = idNumber;
+        galleries.splice(index,1, data);
+      }
+    });
     fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
       if(err) return callback(err);
       callback(null, data);
