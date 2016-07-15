@@ -6,7 +6,7 @@ head
 body
   h1 Welcome to the gallery!
   each val, index in entries
-    div(id=index)
+    div
       img(src=val.url)
       div(style="margin-bottom: 5px") Uploaded by: #{val.author}
       div(style="margin-bottom: 5px") Description: #{val.description}
