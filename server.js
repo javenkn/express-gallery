@@ -37,9 +37,10 @@ app
         res.send('Cannot GET ' + req.params.id);
     }
   })
-  .get('/gallery/:id/edit', function (req, res) {
+  .get('/gallery/:id/edit', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       Gallery.getID(req.params.id, function (err, result) {
+        if(err) return next(err);
         res.render('gallery-edit', result);
       });
     } else {
@@ -81,19 +82,22 @@ app
       res.send('Cannot PUT ' + req.params.id);
     }
   })
-  .delete('/gallery/:id', function (req, res) {
+  .delete('/gallery/:id', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
         Gallery.delete(req.params.id, function (err, results) {
+          if(err) return next(err);
           Gallery.get(function (err, results) {
             var galleryEntries = JSON.parse(results);
-            console.log(galleryEntries);
-            console.log(results);
             res.render('index', { entries: galleryEntries });
           });
         });
     } else {
       res.send('Cannot DELETE ' + req.params.id);
     }
+  });
+
+  app.use(function (err, req, res, next) {
+    res.render('error', { message: err });
   });
 
 var server = app.listen(3000, function () {
