@@ -3,7 +3,8 @@ var path = require('path');
 
 module.exports = {
   create: addGallery,
-  get: getGallery
+  get: getGallery,
+  delete: deleteGallery
 };
 
 var JSON_DATA_PATH = path.resolve('data', 'gallery.json');
@@ -20,6 +21,15 @@ function addGallery(data, callback) {
     if(err) throw err;
     var galleries = JSON.parse(json);
     galleries.push(data); // why does it push _locals: {}
-    fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), callback);
+    fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err, json) {
+      if(err) return callback(err);
+      callback(null, json);
+    });
+  });
+}
+
+function deleteGallery(idNumber, callback) {
+  fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
+
   });
 }

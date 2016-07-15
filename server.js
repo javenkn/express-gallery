@@ -2,10 +2,13 @@ var querystring = require('querystring');
 var pug = require('pug');
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 
 var Gallery = require('./Gallery');
 
 var app = express();
+
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -32,23 +35,20 @@ app
       }
     }
   })
-  .post('/gallery', function (req, res) {
-    req.on('data', function (data) {
-      var locals = querystring.parse(data.toString());
-      Gallery.create(locals);
-      res.render('gallery', locals);
+  .post('/gallery', urlencodedParser, function (req, res) {
+    var locals = req.body;
+    Gallery.create(locals, function (err, results) {
+      res.render('gallery', results);
     });
   })
   .post('/gallery/:id', function (req, res) {
-    req.on('data', function (data) {
-      var locals = querystring.parse(data.toString());
-      if(req.params.id === 'new'){
-        Gallery.create(locals);
-        res.render('gallery', locals);
-      } else {
-        res.send('Cannot POST to ' + '/gallery/' + req.params.id);
-      }
-    });
+    var locals = req.body;
+    if(req.params.id === 'new'){
+      Gallery.create(locals);
+      res.render('gallery', locals);
+    } else {
+      res.send('Cannot POST to ' + '/gallery/' + req.params.id);
+    }
   })
   .put('/gallery/:id', function (req, res) {
     var putData = '';
