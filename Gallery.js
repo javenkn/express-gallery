@@ -50,19 +50,25 @@ function addGallery(data, callback) {
 }
 
 function updateGallery(idNumber, data, callback) {
+  var isFound = false;
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
     galleries.forEach(function (element, index, array) {
       if(element.id === parseInt(idNumber)) {
+        isFound = true;
         data.id = parseInt(idNumber);
         galleries.splice(index,1, data);
       }
     });
-    fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
-      if(err) return callback(err);
-      callback(null, data);
-    });
+    if(!isFound){
+      callback(new Error('Not Found'), null);
+    } else {
+      fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
+        if(err) return callback(err);
+        callback(null, data);
+      });
+    }
   });
 }
 

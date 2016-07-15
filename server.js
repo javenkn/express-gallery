@@ -73,10 +73,11 @@ app
       res.send('Cannot POST to ' + '/gallery/' + req.params.id);
     }
   })
-  .put('/gallery/:id', function (req, res) {
+  .put('/gallery/:id', urlencodedParser, function (req, res) {
+    var locals = req.body;
     if(!isNaN(parseInt(req.params.id))){
-      Gallery.getID(req.params.id, function (err, results) {
-        res.render('gallery-edit', results);
+      Gallery.update(req.params.id, locals, function (err, results) {
+        res.render('update-gallery', results);
       });
     } else {
       res.send('Cannot PUT ' + req.params.id);
