@@ -16,11 +16,12 @@ function getGallery(callback) {
   });
 }
 
-function addGallery(data, count, callback) {
-  data.id = count;
+function addGallery(data, callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
+    var count = galleries.length+1;
+    data.id = count;
     galleries.push(data);
     fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
       if(err) return callback(err);
@@ -33,8 +34,9 @@ function deleteGallery(idNumber, callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
-    galleries.filter(function (element, index, array) {
-
+    var filteredGallery = galleries.filter(function (element, index, array) {
+      return element.id !== idNumber;
     });
+    console.log(filteredGallery);
   });
 }

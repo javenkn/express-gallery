@@ -9,7 +9,6 @@ var Gallery = require('./Gallery');
 var app = express();
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-var count = 0;
 
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -36,19 +35,17 @@ app
     }
   })
   .post('/gallery', urlencodedParser, function (req, res) {
-    count++;
-    console.log(count);
+    // count++;
+    // console.log(count);
     var locals = req.body;
-    Gallery.create(locals, count, function (err, results) {
+    Gallery.create(locals, function (err, results) {
       res.render('gallery', results);
     });
   })
   .post('/gallery/:id', urlencodedParser, function (req, res) {
-    count++;
-    console.log(count);
     var locals = req.body;
     if(req.params.id === 'new'){
-      Gallery.create(locals, count, function (err, results) {
+      Gallery.create(locals, function (err, results) {
         res.render('gallery', results);
       });
     } else {
