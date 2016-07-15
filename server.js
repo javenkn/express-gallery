@@ -21,7 +21,6 @@ app
   .get('/gallery', function (req, res) {
     Gallery.get(function (err, result) {
       var galleryEntries = JSON.parse(result);
-      console.log(galleryEntries);
       res.render('index', { entries: galleryEntries });
     });
   })
@@ -38,6 +37,7 @@ app
   })
   .post('/gallery', urlencodedParser, function (req, res) {
     count++;
+    console.log(count);
     var locals = req.body;
     Gallery.create(locals, count, function (err, results) {
       res.render('gallery', results);
@@ -45,6 +45,7 @@ app
   })
   .post('/gallery/:id', urlencodedParser, function (req, res) {
     count++;
+    console.log(count);
     var locals = req.body;
     if(req.params.id === 'new'){
       Gallery.create(locals, count, function (err, results) {
