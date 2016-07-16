@@ -13,6 +13,7 @@ var count = 0;
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.set('views', path.resolve(__dirname, 'views'));
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'pug');
 app.use(methodOverride('_method'));
 
