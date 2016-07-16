@@ -1,6 +1,7 @@
 // Imports
 @import "partials/_clearfix";
 @import "partials/_reset";
+@import "add-gallery";
 
 * {
   box-sizing: border-box;
@@ -12,6 +13,28 @@ h1 {
   text-align: center;
   font-family: 'Oswald', sans-serif;
   padding: 30px;
+}
+
+.homeButtons {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  flex-flow: row nowrap;
+  text-align: center;
+  justify-content: left;
+  margin-bottom: 10px;
+  background-color: #808080;
+  border: 1px solid black;
+
+  button {
+    font-family: 'Oswald', sans-serif;
+    border: none;
+    border-right: 1px solid black;
+    font-size: 20px;
+    padding: 10px;
+    background-color: #808080;
+  }
+
 }
 
 .gallery {
@@ -31,6 +54,7 @@ h1 {
 
   .author {
     margin-bottom: 10px;
+    color: #c0c0c0;
   }
 
   .description {

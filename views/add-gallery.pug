@@ -3,13 +3,16 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     title Express Gallery
+    link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
+    link(rel="stylesheet" href="../css/index.css")
   body
     h3 This image will be added to the gallery.
-    div
+    div(class="image")
       img(src=url)
-      p Uploaded by: #{author}
-      p Description: #{description}
-    form(method="POST" action="/gallery/new?_method=GET")
-      button(type="submit") Add Another Photo
-    form(method="POST" action="/gallery?_method=GET")
-      button(type="submit") Home
+      p(class="author") Uploaded by: #{author}
+      p(class="description") Description: #{description}
+    div(class="buttons")
+      form(method="POST" action="/gallery/new?_method=GET")
+        button(type="submit") Add Another Photo
+      form(method="POST" action="/gallery?_method=GET")
+        button(type="submit") Home
