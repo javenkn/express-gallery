@@ -14,5 +14,5 @@ body
           form(method="POST" action="/gallery/" + val.id + "/edit?_method=GET")
             button(style="background: transparent; border: none")
               img(src=val.url)
-        div(style="margin-bottom: 5px") Uploaded by: #{val.author}
-        div(style="margin-bottom: 5px") Description: #{val.description}
+        div(class="author") Uploaded by: #{val.author}
+        div(class="description") Description: #{val.description}

@@ -15,16 +15,25 @@ h1 {
 }
 
 .gallery {
+  width: 70%;
+  margin: auto;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: center;
+  border: 1px solid black;
 }
 
 .image {
-  width: 70%;
   flex-basis: fill;
   text-align: center;
-  border: 1px solid black;
   padding: 10px;
+
+  .author {
+    margin-bottom: 10px;
+  }
+
+  .description {
+    @extend .author
+  }
 }
