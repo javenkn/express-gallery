@@ -7,6 +7,8 @@ body
   h1 Welcome to the gallery!
   each val, index in entries
     div
-      img(style="margin-top: 20px", src=val.url)
+      form(method="POST" action="/gallery/" + val.id + "/edit?_method=GET")
+        button(style="background: transparent; border: none")
+          img(style="margin-top: 20px", src=val.url)
       div(style="margin-bottom: 5px") Uploaded by: #{val.author}
       div(style="margin-bottom: 5px") Description: #{val.description}
