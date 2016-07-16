@@ -35,11 +35,11 @@ function getSpecificGallery(idNumber, callback) {
   });
 }
 
-function addGallery(data, callback) {
+function addGallery(data, count, callback) {
   fs.readFile(JSON_DATA_PATH, 'utf8', function (err, json) {
     if(err) throw err;
     var galleries = JSON.parse(json);
-    var count = galleries.length+1; //fix id count
+    // var count = galleries.length+1; //fix id count
     data.id = count;
     galleries.push(data);
     fs.writeFile(JSON_DATA_PATH, JSON.stringify(galleries), function (err) {
