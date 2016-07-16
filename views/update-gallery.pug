@@ -9,3 +9,5 @@ html(lang="en")
       img(src=url)
       p Uploaded by: #{author}
       p Description: #{description}
+    form(method="POST" action="/gallery?_method=GET")
+      button(type="submit") Home

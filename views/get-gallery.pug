@@ -15,3 +15,5 @@ html(lang="en")
             button Edit
           form(style= "display: inline-block" method="POST" action="/gallery/" + id + "?_method=DELETE")
             button(style="margin-left: 10px") Delete
+          form(method="POST" action="/gallery?_method=GET")
+            button(type="submit") Home
