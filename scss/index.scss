@@ -1,5 +1,8 @@
 // Imports
 @import "partials/_clearfix";
-@import "partials/_general_styles";
 @import "partials/_reset";
 
+h1 {
+  color: red;
+  font-family: 'Oswald', sans-serif;
+}
