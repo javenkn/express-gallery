@@ -83,6 +83,31 @@ h3 {
   .buttons button {
     margin-right: 30px; }
 
+.editInfo {
+  display: flex;
+  width: 70%;
+  flex-flow: row wrap;
+  margin: auto;
+  justify-content: center; }
+  .editInfo h2 {
+    color: #808080;
+    font-size: 30px;
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    padding: 30px; }
+  .editInfo .buttons {
+    margin-top: 10px;
+    justify-content: space-between; }
+    .editInfo .buttons button {
+      font-size: 20px; }
+      .editInfo .buttons button button:nth-child(3) {
+        justify-content: right; }
+  .editInfo input {
+    width: 100%; }
+  .editInfo textarea {
+    width: 100%;
+    height: 100px; }
+
 * {
   box-sizing: border-box; }
 

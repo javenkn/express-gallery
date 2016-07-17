@@ -3,21 +3,26 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     title Express Gallery
+    link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
+    link(rel="stylesheet" href="/css/index.css")
   body
-    div
+    div(class="image")
       div
         img(src=url)
-      div(style="margin-bottom: 5px") Uploaded by: #{author}
-      div(style="margin-bottom: 5px") Description: #{description}
-    form(type="x-www-form-urlencoded" method="POST" action="/gallery/" + id + "?_method=PUT")
-      div
+      div(class="author") Uploaded by: #{author}
+      div(class="description") Description: #{description}
+    div(class="editInfo")
+      form(type="x-www-form-urlencoded" method="POST" action="/gallery/" + id + "?_method=PUT")
         h2 Enter the specified info:
         div(style="margin-top: 5px") URL:
-          input(type="text" name="url" style="width: 200px; margin-left: 20px" value=url)
+          input(type="text" name="url" value=url)
         div(style="margin-top: 5px") Author:
-          input(type="text" name="author" style="width: 186px; margin-left: 20px" value=author)
+          input(type="text" name="author" value=author)
         div(style="margin-top: 5px") Description:
-          textarea(name="description" style="width: 165px; height: 100px; vertical-align: top; margin-left: 10px")= description
-      button(type="submit") Save
-    form(method="POST" action="/gallery?_method=GET")
-      button(type="submit") Home
+          textarea(name="description")= description
+        button(id="save" type="submit") Save
+      div(class="buttons")
+        form(method="POST" action="/gallery/" + id + "?_method=DELETE")
+          button(type="submit") Delete
+        form(method="POST" action="/gallery?_method=GET")
+          button(type="submit") Home
