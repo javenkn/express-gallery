@@ -15,8 +15,6 @@
     justify-content: space-between; }
     .editInfo .buttons button {
       font-size: 20px; }
-      .editInfo .buttons button button:nth-child(3) {
-        justify-content: right; }
   .editInfo input {
     width: 100%; }
   .editInfo textarea {

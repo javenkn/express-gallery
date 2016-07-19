@@ -3,17 +3,18 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     title Express Gallery
+    link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
+    link(rel="stylesheet" href="/css/index.css")
   body
-    div
+    div(class="image")
       div
         img(src=url)
-      div(style="margin-bottom: 5px") Uploaded by: #{author}
-      div(style="margin-bottom: 5px") Description: #{description}
-      div(style="margin-bottom: 20px")
-        span
-          form(style= "display: inline-block" method="POST" action="/gallery/" + id + "/edit?_method=GET")
+      div(class="author") Uploaded by: #{author}
+      div(class="description") Description: #{description}
+      div(class="buttons")
+          form(method="POST" action="/gallery/" + id + "/edit?_method=GET")
             button Edit
-          form(style= "display: inline-block" method="POST" action="/gallery/" + id + "?_method=DELETE")
-            button(style="margin-left: 10px") Delete
+          form(method="POST" action="/gallery/" + id + "?_method=DELETE")
+            button Delete
           form(method="POST" action="/gallery?_method=GET")
             button(type="submit") Home
