@@ -112,6 +112,11 @@ h3 {
   .buttons button {
     font-size: 20px; }
 
+.cancel {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 100%; }
+
 * {
   box-sizing: border-box; }
 

@@ -3,14 +3,20 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     title Express Gallery
+    link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
+    link(rel="stylesheet" href="/css/index.css")
   body
-    form(type="x-www-form-urlencoded" method="POST" action="/gallery/new?_method=POST")
-      div
-        h2 Enter the specified info:
-        div(style="margin-top: 5px") URL:
-          input(type="text" name="url" style="width: 200px; margin-left: 20px")
-        div(style="margin-top: 5px") Author:
-          input(type="text" name="author" style="width: 186px; margin-left: 20px")
-        div(style="margin-top: 5px") Description:
-          textarea(name="description" style="width: 165px; height: 100px; vertical-align: top; margin-left: 10px")
-      button(type="submit") Submit
+    div(class="editInfo")
+      form(type="x-www-form-urlencoded" method="POST" action="/gallery/new?_method=POST")
+        div
+          h2 Enter the specified info:
+          div(style="margin-top: 5px") URL:
+            input(type="text" name="url" style="width: 200px; margin-left: 20px")
+          div(style="margin-top: 5px") Author:
+            input(type="text" name="author" style="width: 186px; margin-left: 20px")
+          div(style="margin-top: 5px") Description:
+            textarea(name="description" style="width: 165px; height: 100px; vertical-align: top; margin-left: 10px")
+        button(type="submit") Submit
+    div(class="cancel")
+      form(method="POST" action="/gallery?_method=GET")
+        button(type="submit" style="text-align: center") Cancel
