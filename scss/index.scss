@@ -14,6 +14,7 @@
   color: #808080;
   font-size: 70px;
   font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
   display: flex;
   width: 70%;
   margin: auto;
@@ -34,6 +35,7 @@
   border: 1px solid black;
 
   button {
+    cursor: pointer;
     font-family: 'Oswald', sans-serif;
     border: none;
     border-right: 1px solid black;
@@ -58,6 +60,10 @@
   flex: 1 1 33%;
   text-align: center;
   padding: 10px;
+
+  button {
+    cursor: pointer;
+  }
 
   .author {
     margin-bottom: 10px;
