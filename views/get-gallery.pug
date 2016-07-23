@@ -6,15 +6,14 @@ html(lang="en")
     link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
     link(rel="stylesheet" href="/css/index.css")
   body
+    div(class="header") My Gallery
+    div(class="homeButtons")
+      form(method="POST" action="/gallery?_method=GET")
+        button(type="submit") Home
+      form(method="POST" action="/gallery/new?_method=GET")
+        button(type="submit") Add Photo
     div(class="image")
       div
         img(src=url)
       div(class="author") Uploaded by: #{author}
       div(class="description") Description: #{description}
-      div(class="buttons")
-          form(method="POST" action="/gallery/" + id + "/edit?_method=GET")
-            button Edit
-          form(method="POST" action="/gallery/" + id + "?_method=DELETE")
-            button Delete
-          form(method="POST" action="/gallery?_method=GET")
-            button(type="submit") Home

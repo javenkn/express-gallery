@@ -6,7 +6,7 @@ head
   link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
   link(rel="stylesheet" href="/css/index.css")
 body
-  h1 Welcome to the gallery!
+  div(class="header") Welcome to my Gallery!
   div(class="homeButtons")
     form(method="POST" action="/gallery?_method=GET")
       button(type="submit") Home
@@ -16,8 +16,8 @@ body
     each val, index in entries
       div(class="image")
         div
-          form(method="POST" action="/gallery/" + val.id + "/edit?_method=GET")
+          form(method="POST" action="/gallery/" + val.id + "?_method=GET")
             button(style="background: transparent; border: none")
               img(src=val.url)
         div(class="author") Uploaded by: #{val.author}
-        div(class="description") Description: #{val.description}
+        //- div(class="description") Description: #{val.description}
