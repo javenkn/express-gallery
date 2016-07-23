@@ -1,4 +1,5 @@
 // Imports
+@import "partials/_general_styles";
 @import "partials/_clearfix";
 @import "partials/_reset";
 @import "add-gallery";
@@ -50,16 +51,19 @@
   width: 70%;
   margin: auto;
   display: flex;
-  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   border: 1px solid black;
+  flex-flow: row wrap;
 }
 
 .image {
-  flex: 1 1 33%;
   text-align: center;
   padding: 10px;
+  @include respond-to('large'){
+    flex: 1 1 33%;
+  };
+  flex: 1 1 100%;
 
   button {
     cursor: pointer;
