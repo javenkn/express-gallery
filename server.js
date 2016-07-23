@@ -37,6 +37,10 @@ app
       Gallery.getID(req.params.id, function (err, result) {
         if(err) return next(err);
         res.render('get-gallery', result);
+        // Gallery.get(function (err, results) {
+        //   var galleryEntries = JSON.parse(results);
+        //   res.render('get-gallery', { entries: galleryEntries });
+        // });
       });
     } else {
         res.send('Cannot GET ' + req.params.id);

@@ -6,6 +6,12 @@ html(lang="en")
     link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
     link(rel="stylesheet" href="/css/index.css")
   body
+    div(class="header") Add A Photo
+    div(class="homeButtons")
+      form(method="POST" action="/gallery?_method=GET")
+        button(type="submit") Home
+      form(method="POST" action="/gallery/new?_method=GET")
+        button(type="submit") Add Photo
     div(class="editInfo")
       form(type="x-www-form-urlencoded" method="POST" action="/gallery/new?_method=POST")
         div

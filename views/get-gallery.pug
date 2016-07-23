@@ -17,3 +17,11 @@ html(lang="en")
         img(src=url)
       div(class="author") Uploaded by: #{author}
       div(class="description") Description: #{description}
+    //- div(class="gallery")
+    //-   each val, index in entries
+    //-     div(class="image")
+    //-       div
+    //-         form(method="POST" action="/gallery/" + val.id + "?_method=GET")
+    //-           button(style="background: transparent; border: none")
+    //-             img(src=val.url)
+    //-       div(class="author") Uploaded by: #{val.author}
