@@ -6,3 +6,9 @@
     font-size: 20px;
   }
 }
+
+.sideBarImages {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: right;
+}

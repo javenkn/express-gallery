@@ -5,42 +5,59 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-var Gallery = require('./Gallery');
+var db = require('./models');
 
 var app = express();
-
-var count = 0;
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var Photo = db.Photo;
 
 app.set('views', path.resolve(__dirname, 'views'));
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'pug');
 app.use(methodOverride('_method'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app
   .get('/', function (req, res) {
-    Gallery.get(function (err, results) {
-      var galleryEntries = JSON.parse(results);
-      res.render('index', { entries: galleryEntries });
+    Photo.findAll()
+    .then( (photos) => {
+      var galleryOfPhotos = [];
+      photos.forEach(function (element) {
+        galleryOfPhotos.push(element.dataValues);
+      });
+      res.render('index', { entries: galleryOfPhotos });
     });
   })
   .get('/gallery', function (req, res) {
-    Gallery.get(function (err, results) {
-      var galleryEntries = JSON.parse(results);
-      res.render('index', { entries: galleryEntries });
+    Photo.findAll({
+      order: 'id ASC'
+    })
+    .then( (photos) => {
+      var galleryOfPhotos = [];
+      photos.forEach(function (element) {
+        galleryOfPhotos.push(element.dataValues);
+      });
+      res.render('index', { entries: galleryOfPhotos });
     });
   })
   .get('/gallery/:id', function (req, res, next) {
     if(req.params.id === 'new') {
       res.render('gallery-new');
     } else if(!isNaN(parseInt(req.params.id))){
-      Gallery.getID(req.params.id, function (err, result) {
-        if(err) return next(err);
-        res.render('get-gallery', result);
-        // Gallery.get(function (err, results) {
-        //   var galleryEntries = JSON.parse(results);
-        //   res.render('get-gallery', { entries: galleryEntries });
-        // });
+      var getPhoto = Photo.findById(req.params.id);
+      var getThreePhotos = Photo.findAll({
+        limit: 3,
+        where: {
+          id: { ne: req.params.id }
+        }
+      });
+      Promise.all([getPhoto, getThreePhotos]).then( (results) => {
+        console.log(results[1]);
+        res.render('get-gallery', {
+          photo: results[0],
+          entries: results[1]
+        });
+        // res.render('get-gallery', photo.dataValues);
       });
     } else {
         res.send('Cannot GET ' + req.params.id);
@@ -48,50 +65,55 @@ app
   })
   .get('/gallery/:id/edit', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
-      Gallery.getID(req.params.id, function (err, result) {
-        if(err) return next(err);
-        res.render('gallery-edit', result);
+      Photo.findById(req.params.id)
+      .then( (photo) => {
+        res.render('gallery-edit', photo.dataValues);
       });
     } else {
         res.send('Cannot GET ' + req.params.id);
     }
   })
-  .post('/gallery', urlencodedParser, function (req, res) {
-    count++;
-    var locals = req.body;
-    Gallery.create(locals, count, function (err, results) {
-      res.render('add-gallery', results);
+  .post('/gallery', function (req, res) {
+    Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
+    .then( (photo) => {
+      res.render('add-gallery', photo.dataValues);
     });
   })
-  .post('/gallery/:id', urlencodedParser, function (req, res, next) {
-    count++;
-    var locals = req.body;
-    if(req.params.id === 'new'){
-      Gallery.create(locals, count, function (err, results) {
-        if(err) return next(err);
-        res.render('add-gallery', results);
+  .post('/gallery/:id', function (req, res, next) {
+    Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
+    .then( (photo) => {
+      res.render('add-gallery', photo.dataValues);
+    });
+  })
+  .post('/gallery/:id/edit', function (req, res, next) {
+    if(!isNaN(parseInt(req.params.id))){
+      Photo.update( { url: req.body.url, author: req.body.author, description: req.body.description }, {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then( () => {
+        Photo.findById(req.params.id)
+        .then( (photo) => {
+          res.render('update-gallery', photo.dataValues);
+        });
       });
     } else {
       res.send('Cannot POST to ' + '/gallery/' + req.params.id);
     }
   })
-  .post('/gallery/:id/edit', urlencodedParser, function (req, res, next) {
-    var locals = req.body;
+  .put('/gallery/:id', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
-      Gallery.update(req.params.id, locals, function (err, results) {
-        if(err) return next(err);
-        res.render('update-gallery', results);
-      });
-    } else {
-      res.send('Cannot POST to ' + '/gallery/' + req.params.id);
-    }
-  })
-  .put('/gallery/:id', urlencodedParser, function (req, res, next) {
-    var locals = req.body;
-    if(!isNaN(parseInt(req.params.id))){
-      Gallery.update(req.params.id, locals, function (err, results) {
-        if(err) return next(err);
-        res.render('update-gallery', results);
+      Photo.update( { url: req.body.url, author: req.body.author, description: req.body.description }, {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then( () => {
+        Photo.findById(req.params.id)
+        .then( (photo) => {
+          res.render('update-gallery', photo.dataValues);
+        });
       });
     } else {
       res.send('Cannot PUT ' + req.params.id);
@@ -99,11 +121,15 @@ app
   })
   .delete('/gallery/:id', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
-        Gallery.delete(req.params.id, function (err, results) {
-          if(err) return next(err);
-          var removed = results[0];
-          res.render('gallery-delete', removed);
+      Photo.findById(req.params.id)
+      .then( (photo) => {
+        res.render('gallery-delete', photo.dataValues);
+        Photo.destroy({
+          where: {
+            id: req.params.id
+          }
         });
+      });
     } else {
       res.send('Cannot DELETE ' + req.params.id);
     }
@@ -115,4 +141,5 @@ app
 
 var server = app.listen(3000, function () {
   console.log(`Listening on port ${server.address().port}`);
+  db.sequelize.sync();
 });
