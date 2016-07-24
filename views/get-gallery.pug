@@ -12,16 +12,17 @@ html(lang="en")
         button(type="submit") Home
       form(method="POST" action="/gallery/new?_method=GET")
         button(type="submit") Add Photo
-    div(class="image")
-      div
-        img(src=photo.url)
-      div(class="author") Uploaded by: #{photo.author}
-      div(class="description") Description: #{photo.description}
-    div(class="sideBarImages")
-      each val, index in entries
-        div(class="image")
-          div
-            form(method="POST" action="/gallery/" + val.id + "?_method=GET")
-              button(style="background: transparent; border: none")
-                img(src=val.url)
-          div(class="author") Uploaded by: #{val.author}
+    div(class="bodyGallery")
+      div(class="image")
+        div
+          img(src=photo.url)
+        div(class="author") Uploaded by: #{photo.author}
+        div(class="description") Description: #{photo.description}
+      div(class="sideBarImages")
+        each val, index in entries
+          div(class="image")
+            div
+              form(method="POST" action="/gallery/" + val.id + "?_method=GET")
+                button(style="background: transparent; border: none")
+                  img(src=val.url)
+            div(class="author") Uploaded by: #{val.author}

@@ -19,7 +19,9 @@ app.use(bodyParser.json());
 
 app
   .get('/', function (req, res) {
-    Photo.findAll()
+    Photo.findAll({
+      order: 'id ASC'
+    })
     .then( (photos) => {
       var galleryOfPhotos = [];
       photos.forEach(function (element) {

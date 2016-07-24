@@ -7,8 +7,19 @@
   }
 }
 
-.sideBarImages {
+.bodyGallery {
   display: flex;
-  flex-flow: column wrap;
-  justify-content: right;
+  flex-flow: row wrap;
+  width: 70%;
+  margin: auto;
+
+  .image {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .sideBarImages {
+    flex-flow: column wrap;
+    align-self: flex-end;
+  }
 }
