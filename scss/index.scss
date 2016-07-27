@@ -59,6 +59,28 @@ body {
   justify-content: center;
   border: 1px solid black;
   flex-flow: row wrap;
+
+  .image {
+    width: 250px;
+    height: 250px;
+
+    .image > div {
+      padding: 10px;
+    }
+
+    .author {
+      margin-top: 10px;
+    }
+
+    button {
+      width: 200px;
+      height: 200px;
+      background-size: 100%;
+      background-color: transparent;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
 }
 
 .image {

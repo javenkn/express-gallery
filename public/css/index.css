@@ -179,6 +179,20 @@ body {
   justify-content: center;
   border: 1px solid black;
   flex-flow: row wrap; }
+  .gallery .image, .gallery .bodyGallery .idImage, .bodyGallery .gallery .idImage {
+    width: 250px;
+    height: 250px; }
+    .gallery .image .image > div, .gallery .bodyGallery .idImage .image > div, .bodyGallery .gallery .idImage .image > div, .gallery .image .bodyGallery .idImage > div, .bodyGallery .gallery .image .idImage > div, .gallery .bodyGallery .idImage .idImage > div, .bodyGallery .gallery .idImage .idImage > div {
+      padding: 10px; }
+    .gallery .image .author, .gallery .bodyGallery .idImage .author, .bodyGallery .gallery .idImage .author, .gallery .image .description, .gallery .bodyGallery .idImage .description, .bodyGallery .gallery .idImage .description {
+      margin-top: 10px; }
+    .gallery .image button, .gallery .bodyGallery .idImage button, .bodyGallery .gallery .idImage button {
+      width: 200px;
+      height: 200px;
+      background-size: 100%;
+      background-color: transparent;
+      background-position: center;
+      background-repeat: no-repeat; }
 
 .image, .bodyGallery .idImage {
   text-align: center;
