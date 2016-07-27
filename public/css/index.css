@@ -119,12 +119,25 @@ h3 {
   margin: auto; }
   .bodyGallery .idImage {
     align-self: baseline;
-    border: 1px solid rgba(0, 0, 0, 0.3);
     margin-right: 20px; }
   .bodyGallery .sideBarImages {
     border: 1px solid rgba(0, 0, 0, 0.3);
     flex-flow: column wrap;
     align-self: flex-end; }
+    .bodyGallery .sideBarImages .image, .bodyGallery .sideBarImages .idImage {
+      width: 200px;
+      height: 200px; }
+      .bodyGallery .sideBarImages .image .image > div, .bodyGallery .sideBarImages .idImage .image > div, .bodyGallery .sideBarImages .image .idImage > div, .bodyGallery .sideBarImages .idImage .idImage > div {
+        padding: 10px; }
+      .bodyGallery .sideBarImages .image .author, .bodyGallery .sideBarImages .idImage .author, .bodyGallery .sideBarImages .image .description, .bodyGallery .sideBarImages .idImage .description {
+        margin-top: 10px; }
+      .bodyGallery .sideBarImages .image button, .bodyGallery .sideBarImages .idImage button {
+        width: 150px;
+        height: 150px;
+        background-size: 100%;
+        background-color: transparent;
+        background-position: center;
+        background-repeat: no-repeat; }
     .bodyGallery .sideBarImages .image:nth-child(2), .bodyGallery .sideBarImages .idImage:nth-child(2) {
       border-top: 1px dashed black;
       border-bottom: 1px dashed black; }
@@ -170,6 +183,8 @@ body {
     font-size: 20px;
     padding: 10px;
     background-color: #808080; }
+    .homeButtons button:hover {
+      background-color: #F9FB88; }
 
 .gallery {
   width: 70%;

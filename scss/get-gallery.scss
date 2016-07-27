@@ -15,7 +15,6 @@
 
   .idImage {
     align-self: baseline;
-    border: 1px solid rgba(0, 0, 0, 0.3);
     margin-right: 20px;
     @extend .image;
   }
@@ -24,6 +23,28 @@
     border: 1px solid rgba(0, 0, 0, 0.3);
     flex-flow: column wrap;
     align-self: flex-end;
+
+    .image {
+      width: 200px;
+      height: 200px;
+
+      .image > div {
+        padding: 10px;
+      }
+
+      .author {
+        margin-top: 10px;
+      }
+
+      button {
+        width: 150px;
+        height: 150px;
+        background-size: 100%;
+        background-color: transparent;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
 
     .image:nth-child(2){
       border-top: 1px dashed black;

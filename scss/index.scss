@@ -47,6 +47,10 @@ body {
     font-size: 20px;
     padding: 10px;
     background-color: #808080;
+
+    &:hover {
+      background-color: #F9FB88;
+    }
   }
 
 }

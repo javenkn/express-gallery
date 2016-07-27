@@ -23,6 +23,5 @@ html(lang="en")
           div(class="image")
             div
               form(method="POST" action="/gallery/" + val.id + "?_method=GET")
-                button(style="background: transparent; border: none")
-                  img(src=val.url)
+                button(style="background-image: url('" + val.url + "'); border: none")
             div(class="author") Uploaded by: #{val.author}
