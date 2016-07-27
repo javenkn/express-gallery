@@ -54,12 +54,10 @@ app
         }
       });
       Promise.all([getPhoto, getThreePhotos]).then( (results) => {
-        console.log(results[1]);
         res.render('get-gallery', {
           photo: results[0],
           entries: results[1]
         });
-        // res.render('get-gallery', photo.dataValues);
       });
     } else {
         res.send('Cannot GET ' + req.params.id);

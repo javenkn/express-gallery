@@ -13,13 +13,21 @@
   width: 70%;
   margin: auto;
 
-  .image {
-    align-items: flex-start;
-    text-align: left;
+  .idImage {
+    align-self: baseline;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    margin-right: 20px;
+    @extend .image;
   }
 
   .sideBarImages {
+    border: 1px solid rgba(0, 0, 0, 0.3);
     flex-flow: column wrap;
     align-self: flex-end;
+
+    .image:nth-child(2){
+      border-top: 1px dashed black;
+      border-bottom: 1px dashed black;
+    }
   }
 }

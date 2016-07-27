@@ -71,7 +71,7 @@ h3 {
   font-family: 'Oswald', sans-serif;
   padding: 30px; }
 
-.image {
+.image, .bodyGallery .idImage {
   justify-content: center; }
 
 .buttons {
@@ -117,12 +117,17 @@ h3 {
   flex-flow: row wrap;
   width: 70%;
   margin: auto; }
-  .bodyGallery .image {
-    align-items: flex-start;
-    text-align: left; }
+  .bodyGallery .idImage {
+    align-self: baseline;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    margin-right: 20px; }
   .bodyGallery .sideBarImages {
+    border: 1px solid rgba(0, 0, 0, 0.3);
     flex-flow: column wrap;
     align-self: flex-end; }
+    .bodyGallery .sideBarImages .image:nth-child(2), .bodyGallery .sideBarImages .idImage:nth-child(2) {
+      border-top: 1px dashed black;
+      border-bottom: 1px dashed black; }
 
 .cancel {
   display: flex;
@@ -131,6 +136,9 @@ h3 {
 
 * {
   box-sizing: border-box; }
+
+body {
+  background: url("../pics/asanoha-400px.png"); }
 
 .header {
   color: #808080;
@@ -172,15 +180,15 @@ h3 {
   border: 1px solid black;
   flex-flow: row wrap; }
 
-.image {
+.image, .bodyGallery .idImage {
   text-align: center;
   padding: 10px;
   flex: 1 1 100%; }
   @media (min-width: 900px) {
-    .image {
+    .image, .bodyGallery .idImage {
       flex: 1 1 33%; } }
-  .image button {
+  .image button, .bodyGallery .idImage button {
     cursor: pointer; }
-  .image .author, .image .description {
+  .image .author, .bodyGallery .idImage .author, .image .description, .bodyGallery .idImage .description {
     margin-bottom: 10px;
     color: #c0c0c0; }

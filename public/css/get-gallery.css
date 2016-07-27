@@ -9,9 +9,14 @@
   flex-flow: row wrap;
   width: 70%;
   margin: auto; }
-  .bodyGallery .image {
-    align-items: flex-start;
-    text-align: left; }
+  .bodyGallery .idImage {
+    align-self: baseline;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    margin-right: 20px; }
   .bodyGallery .sideBarImages {
+    border: 1px solid rgba(0, 0, 0, 0.3);
     flex-flow: column wrap;
     align-self: flex-end; }
+    .bodyGallery .sideBarImages .image:nth-child(2), .bodyGallery .sideBarImages .idImage:nth-child(2) {
+      border-top: 1px dashed black;
+      border-bottom: 1px dashed black; }
