@@ -30,7 +30,7 @@ body {
 
 .homeButtons {
   display: flex;
-  width: 70%;
+  width: 80%;
   margin: auto;
   flex-flow: row nowrap;
   text-align: center;
@@ -56,17 +56,25 @@ body {
 }
 
 .gallery {
-  width: 70%;
+  width: 80%;
   margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
   flex-flow: row wrap;
 
   .image {
     width: 250px;
     height: 250px;
+    background-size: 100%;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 2px;
+    @include respond-to('large'){
+      flex: 1 1 30%;
+    };
+    flex: 1 1 100%;
 
     .image > div {
       padding: 10px;
@@ -77,12 +85,8 @@ body {
     }
 
     button {
-      width: 200px;
-      height: 200px;
-      background-size: 100%;
-      background-color: transparent;
-      background-position: center;
-      background-repeat: no-repeat;
+      width: 320px;
+      height: 210px;
     }
   }
 }
@@ -100,7 +104,8 @@ body {
 
   .author {
     margin-bottom: 10px;
-    color: #c0c0c0;
+    color: white;
+    text-shadow: 1px 1px 1px black;
   }
 
   .description {

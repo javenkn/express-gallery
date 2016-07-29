@@ -14,8 +14,8 @@ body
       button(type="submit") Add Photo
   div(class="gallery")
     each val, index in entries
-      div(class="image")
+      div(class="image" style="background-image: url('" + val.url + "')")
         div
           form(method="POST" action="/gallery/" + val.id + "?_method=GET")
-            button(style="background-image: url('" + val.url + "'); border: none")
+            button(style="background-color: transparent; border: none")
         div(class="author") Uploaded by: #{val.author}
