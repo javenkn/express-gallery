@@ -14,14 +14,14 @@ html(lang="en")
         button(type="submit") Add Photo
     div(class="bodyGallery")
       div(class="idImage")
-        div
-          img(src=photo.url)
+        div(class="image" style="background-image: url('" + photo.url + "')")
         div(class="author") Uploaded by: #{photo.author}
         div(class="description") Description: #{photo.description}
       div(class="sideBarImages")
+        div(class="sideBarHeader") Other Images
         each val, index in entries
-          div(class="image")
+          div(class="image" style="background-image: url('" + val.url + "')")
             div
               form(method="POST" action="/gallery/" + val.id + "?_method=GET")
-                button(style="background-image: url('" + val.url + "'); border: none")
+                button(style="background-color: transparent; border: none")
             div(class="author") Uploaded by: #{val.author}

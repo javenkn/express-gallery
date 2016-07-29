@@ -71,7 +71,7 @@ h3 {
   font-family: 'Oswald', sans-serif;
   padding: 30px; }
 
-.image, .bodyGallery .idImage {
+.image {
   justify-content: center; }
 
 .buttons {
@@ -115,32 +115,50 @@ h3 {
 .bodyGallery {
   display: flex;
   flex-flow: row wrap;
-  width: 70%;
+  width: 80%;
   margin: auto; }
   .bodyGallery .idImage {
-    align-self: baseline;
-    margin-right: 20px; }
+    flex: 1 1 65%;
+    text-align: center;
+    font-family: 'Oswald', sans-serif; }
+    .bodyGallery .idImage .image {
+      height: 400px;
+      background-color: transparent;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-right: 20px; }
+    .bodyGallery .idImage .author, .bodyGallery .idImage .image .description, .image .bodyGallery .idImage .description {
+      padding: 10px; }
   .bodyGallery .sideBarImages {
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    width: 35%;
     flex-flow: column wrap;
-    align-self: flex-end; }
-    .bodyGallery .sideBarImages .image, .bodyGallery .sideBarImages .idImage {
-      width: 200px;
-      height: 200px; }
-      .bodyGallery .sideBarImages .image .image > div, .bodyGallery .sideBarImages .idImage .image > div, .bodyGallery .sideBarImages .image .idImage > div, .bodyGallery .sideBarImages .idImage .idImage > div {
+    border: 1px solid black; }
+    .bodyGallery .sideBarImages .sideBarHeader {
+      color: #808080;
+      font-size: 40px;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 10px;
+      text-decoration: underline; }
+    .bodyGallery .sideBarImages .image {
+      width: 300px;
+      height: 200px;
+      background-size: 100%;
+      background-color: transparent;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: auto;
+      margin-bottom: 10px; }
+      .bodyGallery .sideBarImages .image .image > div {
         padding: 10px; }
-      .bodyGallery .sideBarImages .image .author, .bodyGallery .sideBarImages .idImage .author, .bodyGallery .sideBarImages .image .description, .bodyGallery .sideBarImages .idImage .description {
-        margin-top: 10px; }
-      .bodyGallery .sideBarImages .image button, .bodyGallery .sideBarImages .idImage button {
-        width: 150px;
-        height: 150px;
-        background-size: 100%;
-        background-color: transparent;
-        background-position: center;
-        background-repeat: no-repeat; }
-    .bodyGallery .sideBarImages .image:nth-child(2), .bodyGallery .sideBarImages .idImage:nth-child(2) {
-      border-top: 1px dashed black;
-      border-bottom: 1px dashed black; }
+      .bodyGallery .sideBarImages .image .author, .bodyGallery .sideBarImages .image .description {
+        margin-top: 10px;
+        margin-bottom: 5px; }
+      .bodyGallery .sideBarImages .image button {
+        width: 285px;
+        height: 150px; }
 
 .cancel {
   display: flex;
@@ -159,7 +177,7 @@ body {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   display: flex;
-  width: 70%;
+  width: 80%;
   margin: auto;
   padding: 20px;
   padding-left: 0;
@@ -171,7 +189,6 @@ body {
   margin: auto;
   flex-flow: row nowrap;
   text-align: center;
-  justify-content: left;
   margin-bottom: 10px;
   background-color: #808080;
   border: 1px solid black; }
@@ -193,7 +210,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-flow: row wrap; }
-  .gallery .image, .gallery .bodyGallery .idImage, .bodyGallery .gallery .idImage {
+  .gallery .image {
     width: 250px;
     height: 250px;
     background-size: 100%;
@@ -203,26 +220,26 @@ body {
     margin: 2px;
     flex: 1 1 100%; }
     @media (min-width: 900px) {
-      .gallery .image, .gallery .bodyGallery .idImage, .bodyGallery .gallery .idImage {
+      .gallery .image {
         flex: 1 1 30%; } }
-    .gallery .image .image > div, .gallery .bodyGallery .idImage .image > div, .bodyGallery .gallery .idImage .image > div, .gallery .image .bodyGallery .idImage > div, .bodyGallery .gallery .image .idImage > div, .gallery .bodyGallery .idImage .idImage > div, .bodyGallery .gallery .idImage .idImage > div {
+    .gallery .image .image > div {
       padding: 10px; }
-    .gallery .image .author, .gallery .bodyGallery .idImage .author, .bodyGallery .gallery .idImage .author, .gallery .image .description, .gallery .bodyGallery .idImage .description, .bodyGallery .gallery .idImage .description {
+    .gallery .image .author, .gallery .image .description {
       margin-top: 10px; }
-    .gallery .image button, .gallery .bodyGallery .idImage button, .bodyGallery .gallery .idImage button {
+    .gallery .image button {
       width: 320px;
       height: 210px; }
 
-.image, .bodyGallery .idImage {
+.image {
   text-align: center;
   padding: 10px;
   flex: 1 1 100%; }
   @media (min-width: 900px) {
-    .image, .bodyGallery .idImage {
+    .image {
       flex: 1 1 33%; } }
-  .image button, .bodyGallery .idImage button {
+  .image button {
     cursor: pointer; }
-  .image .author, .bodyGallery .idImage .author, .image .description, .bodyGallery .idImage .description {
+  .image .author, .image .description {
     margin-bottom: 10px;
     color: white;
     text-shadow: 1px 1px 1px black; }
