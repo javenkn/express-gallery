@@ -1,3 +1,6 @@
+//Partials
+@import "partials/_general_styles";
+
 .buttons {
   margin-top: 10px;
   justify-content: center;
@@ -9,12 +12,16 @@
 
 .bodyGallery {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   width: 80%;
   margin: auto;
 
   .idImage {
-    flex: 1 1 65%;
+    @include respond-to('large'){
+      flex: 1 1 65%;
+      margin-right: 20px;
+    };
+    flex: 1 1 100%;
     text-align: center;
     font-family: 'Oswald', sans-serif;
 
@@ -24,16 +31,24 @@
       background-size: 100% 100%;
       background-repeat: no-repeat;
       background-position: center;
-      margin-right: 20px;
     }
 
     .author {
-      padding: 10px;
+      padding: 5px;
+    }
+
+    .description {
+      padding: 5px;
     }
   }
 
   .sideBarImages {
-    width: 35%;
+    @include respond-to('large'){
+      flex: 1 1 35%;
+      display: block;
+    };
+    flex: 0 1 100%;
+    display: none;
     flex-flow: column wrap;
     border: 1px solid black;
 
@@ -48,14 +63,13 @@
     }
 
     .image {
-      width: 300px;
+      flex: 1 1 100%;
       height: 200px;
       background-size: 100%;
       background-color: transparent;
       background-position: center;
       background-repeat: no-repeat;
-      margin: auto;
-      margin-bottom: 10px;
+      margin: 10px;
 
       .image > div {
         padding: 10px;
