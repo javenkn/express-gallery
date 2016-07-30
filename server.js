@@ -1,22 +1,38 @@
+// requires
 var querystring = require('querystring');
 var pug = require('pug');
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var passport = require('passport');
+var BasicStrategy = require('passport-http').BasicStrategy;
 
 var db = require('./models');
 
 var app = express();
 var Photo = db.Photo;
 
+// middleware
 app.set('views', path.resolve(__dirname, 'views'));
-app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('view engine', 'pug');
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Other middleware
+var user = { username: 'bob', password: 'secret', email: 'bob@example.com' };
+passport.use(new BasicStrategy(
+  function(username, password, done) {
+    // Example authentication strategy using
+    if ( !(username === user.username && password === user.password) ) {
+      return done(null, false);
+    }
+    return done(null, user);
+}));
+
+// routes
 app
   .get('/', function (req, res) {
     Photo.findAll({
@@ -50,10 +66,11 @@ app
       }
     });
   })
-  .get('/gallery/:id', function (req, res, next) {
-    if(req.params.id === 'new') {
+  .get('/gallery/new', passport.authenticate('basic', { session: false }), function (req, res) {
       res.render('gallery-new');
-    } else if(!isNaN(parseInt(req.params.id))){
+  })
+  .get('/gallery/:id', function (req, res, next) {
+    if(!isNaN(parseInt(req.params.id))){
       var getPhoto = Photo.findById(req.params.id);
       var getThreePhotos = Photo.findAll({
         limit: 3,
@@ -75,7 +92,11 @@ app
     } else {
         res.send('Cannot GET ' + req.params.id);
     }
-  })
+  });
+
+app.use(passport.authenticate('basic', { session: false }));
+
+app
   .get('/gallery/:id/edit', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       Photo.findById(req.params.id)
