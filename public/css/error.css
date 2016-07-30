@@ -1,0 +1,13 @@
+.errorStatus, .error {
+  color: #808080;
+  font-size: 70px;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  padding: 20px;
+  text-align: center;
+  margin-top: 110px; }
+
+.error {
+  text-transform: none;
+  margin-top: 0;
+  font-size: 40px; }
