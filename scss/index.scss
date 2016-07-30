@@ -21,8 +21,7 @@ body {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   display: flex;
-  width: 80%;
-  margin: auto;
+  flex: 1 1 80%;
   padding: 20px;
   padding-left: 0;
   justify-content: flex-start;
@@ -30,8 +29,7 @@ body {
 
 .homeButtons {
   display: flex;
-  width: 80%;
-  margin: auto;
+  flex: 1 1 80%;
   flex-flow: row nowrap;
   text-align: center;
   margin-bottom: 10px;
@@ -55,15 +53,13 @@ body {
 }
 
 .gallery {
-  width: 80%;
   margin: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-flow: row wrap;
+  justify-content: center;
+  flex: 1 1 80%;
 
   .image {
-    width: 250px;
     height: 250px;
     background-size: 100%;
     background-color: transparent;
@@ -71,16 +67,12 @@ body {
     background-repeat: no-repeat;
     margin: 2px;
     @include respond-to('large'){
-      flex: 1 1 30%;
+      flex: 0 1 250px;
     };
     flex: 1 1 100%;
 
     .image > div {
       padding: 10px;
-    }
-
-    .author {
-      margin-top: 10px;
     }
 
     button {
@@ -92,19 +84,15 @@ body {
 
 .image {
   text-align: center;
-  padding: 10px;
-  @include respond-to('large'){
-    flex: 1 1 33%;
-  };
-  flex: 1 1 100%;
+
   button {
     cursor: pointer;
   }
 
   .author {
-    margin-bottom: 10px;
     color: white;
     text-shadow: 1px 1px 1px black;
+    font-size: 20px;
   }
 
   .description {

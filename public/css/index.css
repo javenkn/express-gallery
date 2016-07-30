@@ -186,16 +186,14 @@ body {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   display: flex;
-  width: 80%;
-  margin: auto;
+  flex: 1 1 80%;
   padding: 20px;
   padding-left: 0;
   justify-content: flex-start; }
 
 .homeButtons {
   display: flex;
-  width: 80%;
-  margin: auto;
+  flex: 1 1 80%;
   flex-flow: row nowrap;
   text-align: center;
   margin-bottom: 10px;
@@ -213,14 +211,12 @@ body {
       background-color: #F9FB88; }
 
 .gallery {
-  width: 80%;
   margin: auto;
   display: flex;
-  align-items: center;
+  flex-flow: row wrap;
   justify-content: center;
-  flex-flow: row wrap; }
+  flex: 1 1 80%; }
   .gallery .image {
-    width: 250px;
     height: 250px;
     background-size: 100%;
     background-color: transparent;
@@ -230,25 +226,18 @@ body {
     flex: 1 1 100%; }
     @media (min-width: 900px) {
       .gallery .image {
-        flex: 1 1 30%; } }
+        flex: 0 1 250px; } }
     .gallery .image .image > div {
       padding: 10px; }
-    .gallery .image .author, .gallery .image .description {
-      margin-top: 10px; }
     .gallery .image button {
       width: 320px;
       height: 210px; }
 
 .image {
-  text-align: center;
-  padding: 10px;
-  flex: 1 1 100%; }
-  @media (min-width: 900px) {
-    .image {
-      flex: 1 1 33%; } }
+  text-align: center; }
   .image button {
     cursor: pointer; }
   .image .author, .image .description {
-    margin-bottom: 10px;
     color: white;
-    text-shadow: 1px 1px 1px black; }
+    text-shadow: 1px 1px 1px black;
+    font-size: 20px; }
