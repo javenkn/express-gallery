@@ -21,27 +21,31 @@ body {
   font-size: 70px;
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
-  display: flex;
-  flex: 1 1 80%;
   padding: 20px;
   padding-left: 0;
-  justify-content: flex-start;
+  text-shadow: 1px 1px 1px black;
 }
 
 .homeButtons {
-  display: flex;
-  flex: 0 0 100%;
-  flex-flow: row nowrap;
+  width: 100%;
   text-align: center;
   margin-bottom: 10px;
   background-color: #808080;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-right: 0px;
+  border-left: 0px;
+
+  div {
+    display: inline-block;
+    padding-right: 10px;
+  }
 
   button {
     cursor: pointer;
     font-family: 'Oswald', sans-serif;
     border: none;
-    border-right: 1px solid black;
+    color: white;
+    text-shadow: 1px 1px 1px black;
     font-size: 20px;
     padding: 10px;
     background-color: #808080;
@@ -67,14 +71,12 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     margin: 2px;
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px black;
     @include respond-to('large'){
       flex: 0 1 250px;
     };
     flex: 1 1 100%;
-
-    .image > div {
-      padding: 10px;
-    }
 
     button {
       width: 320px;

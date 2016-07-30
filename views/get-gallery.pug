@@ -8,10 +8,12 @@ html(lang="en")
   body
     div(class="header") My Gallery
     div(class="homeButtons")
-      form(method="POST" action="/gallery?_method=GET")
-        button(type="submit") Home
-      form(method="POST" action="/gallery/new?_method=GET")
-        button(type="submit") Add Photo
+      div
+        form(method="POST" action="/gallery?_method=GET")
+          button(type="submit") Home
+      div
+        form(method="POST" action="/gallery/new?_method=GET")
+          button(type="submit") Add Photo
     div(class="bodyGallery")
       div(class="idImage")
         div(class="image" style="background-image: url('" + photo.url + "')")

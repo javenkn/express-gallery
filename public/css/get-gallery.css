@@ -12,26 +12,30 @@
   .bodyGallery .idImage {
     flex: 1 1 100%;
     text-align: center;
-    font-family: 'Oswald', sans-serif; }
+    font-family: Book Antiqua; }
     @media (min-width: 900px) {
       .bodyGallery .idImage {
         flex: 1 1 65%;
         margin-right: 20px; } }
     .bodyGallery .idImage .image {
-      height: 400px;
+      height: 350px;
       background-color: transparent;
       background-size: 100% 100%;
       background-repeat: no-repeat;
-      background-position: center; }
+      background-position: center;
+      border: 5px solid black; }
     .bodyGallery .idImage .author {
+      font-size: 30px;
       padding: 5px; }
     .bodyGallery .idImage .description {
+      font-size: 20px;
       padding: 5px; }
   .bodyGallery .sideBarImages {
     flex: 0 1 100%;
     display: none;
     flex-flow: column wrap;
-    border: 1px solid black; }
+    border: 10px solid #808080;
+    box-shadow: 1px 1px 1px black; }
     @media (min-width: 900px) {
       .bodyGallery .sideBarImages {
         flex: 1 1 35%;
@@ -43,15 +47,18 @@
       text-transform: uppercase;
       text-align: center;
       padding: 10px;
-      text-decoration: underline; }
+      text-decoration: underline;
+      text-shadow: 1px 1px 1px black; }
     .bodyGallery .sideBarImages .image {
-      flex: 1 1 100%;
+      flex: 1 1 300px;
       height: 200px;
       background-size: 100%;
       background-color: transparent;
       background-position: center;
       background-repeat: no-repeat;
-      margin: 10px; }
+      margin: 10px;
+      border: 1px solid black;
+      box-shadow: 1px 1px 1px black; }
       .bodyGallery .sideBarImages .image .image > div {
         padding: 10px; }
       .bodyGallery .sideBarImages .image .author {
