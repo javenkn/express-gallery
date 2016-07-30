@@ -23,7 +23,7 @@ app
       order: 'id ASC'
     })
     .then( (photos) => {
-      if(photos) {
+      if(photos) { // if photos exists, get the gallery
         var galleryOfPhotos = [];
         photos.forEach(function (element) {
           galleryOfPhotos.push(element.dataValues);
@@ -39,7 +39,7 @@ app
       order: 'id ASC'
     })
     .then( (photos) => {
-      if(photos) {
+      if(photos) { // if photos exists, get the gallery
         var galleryOfPhotos = [];
         photos.forEach(function (element) {
           galleryOfPhotos.push(element.dataValues);
@@ -63,12 +63,12 @@ app
       });
       Promise.all([getPhoto, getThreePhotos])
       .then( (results) => {
-        if(results[0]){
+        if(results[0]){ // if the photo exists, get the picture and the three side pics
           res.render('get-gallery', {
             photo: results[0],
             entries: results[1]
           });
-        } else {
+        } else { // if the photo doesn't exist
           return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
         }
       });
@@ -80,9 +80,9 @@ app
     if(!isNaN(parseInt(req.params.id))){
       Photo.findById(req.params.id)
       .then( (photo) => {
-        if(photo){
+        if(photo){ // if photo exists, get the picture
           res.render('gallery-edit', photo.dataValues);
-        } else {
+        } else { // if photo doesn't exist
           return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
         }
       });
@@ -90,14 +90,14 @@ app
         res.send('Cannot GET ' + req.params.id);
     }
   })
-  .post('/gallery', function (req, res) {
+  .post('/gallery', function (req, res) { // creates a new photo to the gallery
     Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
     .then( (photo) => {
       res.render('add-gallery', photo.dataValues);
     });
   })
   .post('/gallery/:id', function (req, res, next) {
-    if(req.params.id === 'new'){
+    if(req.params.id === 'new'){ // if the id is new (user wants to post)
       Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
       .then( (photo) => {
         res.render('add-gallery', photo.dataValues);
@@ -158,14 +158,14 @@ app
     if(!isNaN(parseInt(req.params.id))){
       Photo.findById(req.params.id)
       .then( (photo) => {
-        if(photo) {
+        if(photo) { // if photo exists, delete photo
           res.render('gallery-delete', photo.dataValues);
           Photo.destroy({
             where: {
               id: req.params.id
             }
           });
-        } else {
+        } else { // if photo doesn't exist
           return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
         }
       });
