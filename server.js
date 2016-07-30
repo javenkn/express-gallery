@@ -6,7 +6,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
-var BasicStrategy = require('passport-http').BasicStrategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 var db = require('./models');
 
@@ -23,14 +23,27 @@ app.use(bodyParser.json());
 
 // Other middleware
 var user = { username: 'bob', password: 'secret', email: 'bob@example.com' };
-passport.use(new BasicStrategy(
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.use(new LocalStrategy(
   function(username, password, done) {
-    // Example authentication strategy using
-    if ( !(username === user.username && password === user.password) ) {
-      return done(null, false);
+    if(username === user.username && password === user.password) {
+      console.log(user);
+      return done(null, user);
     }
-    return done(null, user);
-}));
+    return done(null, false);
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 app
@@ -50,6 +63,9 @@ app
       }
     });
   })
+  .get('/login', function (req, res) {
+    res.render('login');
+  })
   .get('/gallery', function (req, res) {
     Photo.findAll({
       order: 'id ASC'
@@ -66,7 +82,7 @@ app
       }
     });
   })
-  .get('/gallery/new', passport.authenticate('basic', { session: false }), function (req, res) {
+  .get('/gallery/new', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res) {
       res.render('gallery-new');
   })
   .get('/gallery/:id', function (req, res, next) {
@@ -94,7 +110,7 @@ app
     }
   });
 
-app.use(passport.authenticate('basic', { session: false }));
+app.use(passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
 
 app
   .get('/gallery/:id/edit', function (req, res, next) {
@@ -110,6 +126,9 @@ app
     } else {
         res.send('Cannot GET ' + req.params.id);
     }
+  })
+  .post('/login', function (req, res) {
+
   })
   .post('/gallery', function (req, res) { // creates a new photo to the gallery
     Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
