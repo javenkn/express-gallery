@@ -66,6 +66,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // routes
+// non authentication
 app
   .get('/', function (req, res) {
     console.log(req.user.username);
@@ -131,6 +132,7 @@ app
     }
   });
 
+// need authentication
 app
   .get('/gallery/:id/edit', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
