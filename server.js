@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
 
 var db = require('./models');
 
@@ -21,29 +22,40 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session( {
+  resave: true,
+  saveUninitialized: false,
+  secret: 'keyboardcat'
+}));
 
 // Other middleware
 passport.serializeUser(function (user, done) {
+  var userID = user.dataValues.id;
   done(null, userID);
 });
 
 passport.deserializeUser(function (userID, done) {
-  done(null, user);
+  User.findById(userID)
+  .then( (userFound) => {
+    if(userFound) {
+      done(null, userFound);
+    } else {
+      done(null, false);
+    }
+  });
 });
 
 passport.use(new LocalStrategy(
   function(user, pw, done) {
-    console.log(user);
-    console.log(pw);
     User.findOne({
-      where: { username: user, password: pw}
+      where: { username : user, password: pw}
     })
     .then( (userFound) => {
       if(userFound){
         console.log('Found!');
         return done(null, userFound);
       } else {
-        console.log('go back to login');
+        console.log('Back to login.');
         return done(null, false);
       }
     });
@@ -56,6 +68,7 @@ app.use(passport.session());
 // routes
 app
   .get('/', function (req, res) {
+    console.log(req.user.username);
     Photo.findAll({
       order: 'id ASC'
     })
@@ -134,7 +147,6 @@ app
     }
   })
   .post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res) {
-
   })
   .post('/gallery', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res) { // creates a new photo to the gallery
     Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
