@@ -23,23 +23,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Other middleware
-var user = { username: 'bob', password: 'secret', email: 'bob@example.com' };
-
 passport.serializeUser(function (user, done) {
-  done(null, user);
+  done(null, userID);
 });
 
-passport.deserializeUser(function (user, done) {
+passport.deserializeUser(function (userID, done) {
   done(null, user);
 });
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    if(username === user.username && password === user.password) {
-      console.log(user);
-      return done(null, user);
-    }
-    return done(null, false);
+  function(user, pw, done) {
+    console.log(user);
+    console.log(pw);
+    User.findOne({
+      where: { username: user, password: pw}
+    })
+    .then( (userFound) => {
+      if(userFound){
+        console.log('Found!');
+        return done(null, userFound);
+      } else {
+        console.log('go back to login');
+        return done(null, false);
+      }
+    });
   })
 );
 
