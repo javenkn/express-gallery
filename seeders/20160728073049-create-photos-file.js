@@ -70,30 +70,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    queryInterface.bulkDelete('Photos', [{
-      author :'Google Person'
-    },
-    {
-      author : 'CityPerson'
-    },
-    {
-      author: 'CityPerson'
-    },
-    {
-      author: 'Abstract'
-    },
-    {
-      author: 'Star'
-    },
-    {
-      author: 'giraffeman'
-    },
-    {
-      author: 'LamboMan'
-    },
-    {
-      author: 'Foodman'
-    }
-    ]);
+    return queryInterface.bulkDelete('Photos');
   }
 };
