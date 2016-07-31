@@ -12,6 +12,7 @@ var db = require('./models');
 
 var app = express();
 var Photo = db.Photo;
+var User = db.User;
 
 // middleware
 app.set('views', path.resolve(__dirname, 'views'));
