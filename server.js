@@ -110,10 +110,8 @@ app
     }
   });
 
-app.use(passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
-
 app
-  .get('/gallery/:id/edit', function (req, res, next) {
+  .get('/gallery/:id/edit', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       Photo.findById(req.params.id)
       .then( (photo) => {
@@ -127,16 +125,16 @@ app
         res.send('Cannot GET ' + req.params.id);
     }
   })
-  .post('/login', function (req, res) {
+  .post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res) {
 
   })
-  .post('/gallery', function (req, res) { // creates a new photo to the gallery
+  .post('/gallery', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res) { // creates a new photo to the gallery
     Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
     .then( (photo) => {
       res.render('add-gallery', photo.dataValues);
     });
   })
-  .post('/gallery/:id', function (req, res, next) {
+  .post('/gallery/:id', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res, next) {
     if(req.params.id === 'new'){ // if the id is new (user wants to post)
       Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
       .then( (photo) => {
@@ -146,7 +144,7 @@ app
       res.send('Cannot POST to ' + '/gallery/' + req.params.id);
     }
   })
-  .post('/gallery/:id/edit', function (req, res, next) {
+  .post('/gallery/:id/edit', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       Photo.findById(req.params.id)
       .then( (photo) => {
@@ -170,7 +168,7 @@ app
       res.send('Cannot POST to ' + '/gallery/' + req.params.id);
     }
   })
-  .put('/gallery/:id', function (req, res, next) {
+  .put('/gallery/:id', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       Photo.findById(req.params.id)
       .then( (photo) => {
@@ -194,7 +192,7 @@ app
       res.send('Cannot PUT ' + req.params.id);
     }
   })
-  .delete('/gallery/:id', function (req, res, next) {
+  .delete('/gallery/:id', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       Photo.findById(req.params.id)
       .then( (photo) => {
