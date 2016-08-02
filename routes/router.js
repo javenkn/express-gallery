@@ -1,66 +1,97 @@
-// Requires
-var express = require('express');
-var app = express();
-var router = express.Router();
-var authRouter = express.Router();
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+module.exports = function (app, express, passport){
 
-// Middleware
+  // Requires
+  var router = express.Router();
 
+  // Model declarations
+  var db = require('../models');
+  var Photo = db.Photo;
+  var User = db.User;
 
-// Passport middleware
-passport.serializeUser(function (user, done) {
-  var userID = user.dataValues.id;
-  done(null, userID);
-});
+  // Middleware
 
-passport.deserializeUser(function (userID, done) {
-  User.findById(userID)
-  .then( (userFound) => {
-    if(userFound) {
-      done(null, userFound);
-    } else {
-      done(null, false);
-    }
+  // Authentication Router
+  router.post('/login', function (req, res) {
+    console.log('Authenticated...');
   });
-});
 
-passport.use(new LocalStrategy(
-  function(user, pw, done) {
-    User.findOne({
-      where: { username : user, password: pw}
-    })
-    .then( (userFound) => {
-      if(userFound){
-        console.log('Found!');
-        return done(null, userFound);
-      } else {
-        console.log('Back to login.');
-        return done(null, false);
+  router.route('/gallery/new')
+  .get(function (req, res) {
+    res.render('gallery-new');
+  })
+  .post(function (req, res, next) {
+    createPhoto(Photo, req, res);
+  });
+
+  router.post('/gallery', function (req, res) {
+    createPhoto(Photo, req, res);
+  });
+
+  router.route('/gallery/:id/')
+  .all(function (req, res, next) {
+    if(!isNaN(parseInt(req.params.id))){
+      next();
+    } else {
+      return next(req.params.id + ' does not exist.');
+    }
+  })
+  .put(function (req, res, next) {
+    updatePhoto(Photo, req.params.id, req, res, next);
+  })
+  .delete(function (req, res, next) {
+    Photo.findById(req.params.id)
+    .then( (photo) => {
+      if(photo) { // if photo exists, delete photo
+        res.render('gallery-delete', photo.dataValues);
+        Photo.destroy({
+          where: {
+            id: req.params.id
+          }
+        });
+      } else { // if photo doesn't exist
+        return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
       }
     });
+  });
+
+  router.route('/gallery/:id/edit')
+  .all(function (req, res, next) {
+    if(!isNaN(parseInt(req.params.id))){
+      next();
+    } else {
+      return next(req.params.id + 'does not exist.');
+    }
   })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-authRouter.use(passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
-
-authRouter.route('/gallery/:id/')
-.post(function (req, res, next) {
-  if(req.params.id === 'new'){ // if the id is new (user wants to post)
-    Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
-    .then( (photo) => {
-      res.render('add-gallery', photo.dataValues);
-    });
-  } else {
-    res.send('Cannot POST to ' + '/gallery/' + req.params.id);
-  }
-})
-.put(function (req, res, next) {
-  if(!isNaN(parseInt(req.params.id))){
+  .get(function (req, res, next) {
     Photo.findById(req.params.id)
+      .then( (photo) => {
+        if(photo){ // if photo exists, get the picture
+          res.render('gallery-edit', photo.dataValues);
+        } else { // if photo doesn't exist
+          return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
+        }
+      });
+  })
+  .post(function (req, res, next) {
+    updatePhoto(req.params.id, req, res, next);
+  });
+
+  router.use(function (err, req, res, next) {
+      res.render('error', { message: err });
+  });
+
+  return router;
+};
+
+function createPhoto (Photo, req, res) {
+  Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
+  .then( (photo) => {
+    res.render('add-gallery', photo.dataValues);
+  });
+}
+
+function updatePhoto (Photo, photoID, req, res, next) {
+  Photo.findById(req.params.id)
     .then( (photo) => {
       if(photo) { // if photo exists, update the photo
         Photo.update( { url: req.body.url, author: req.body.author, description: req.body.description }, {
@@ -78,31 +109,4 @@ authRouter.route('/gallery/:id/')
         return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
       }
     });
-  } else {
-    res.send('Cannot PUT ' + req.params.id);
-  }
-})
-.delete(function (req, res, next) {
-  if(!isNaN(parseInt(req.params.id))){
-    Photo.findById(req.params.id)
-    .then( (photo) => {
-      if(photo) { // if photo exists, delete photo
-        res.render('gallery-delete', photo.dataValues);
-        Photo.destroy({
-          where: {
-            id: req.params.id
-          }
-        });
-      } else { // if photo doesn't exist
-        return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
-      }
-    });
-  } else {
-    res.send('Cannot DELETE ' + req.params.id);
-  }
-});
-
-module.exports = {
-  forUsers: authRouter,
-  forAdmin: authRouter
-};
+}
