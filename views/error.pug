@@ -9,10 +9,10 @@ body
   div(class="header") My Gallery
   div(class="homeButtons")
     div
-      form(method="POST" action="/gallery?_method=GET")
+      form(method="GET" action="/gallery")
         button(type="submit") Home
     div
-      form(method="POST" action="user/gallery/new?_method=GET")
+      form(method="GET" action="/gallery/new")
         button(type="submit") Add Photo
   div(class="errorStatus") Error 404!
   div(class="error")= message

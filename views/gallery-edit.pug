@@ -9,13 +9,13 @@ html(lang="en")
     div(class="header") Edit Photo
     div(class="homeButtons")
       div
-        form(method="POST" action="/gallery?_method=GET")
+        form(method="GET" action="/gallery")
           button(type="submit") Home
       div
-        form(method="POST" action="user/gallery/new?_method=GET")
+        form(method="GET" action="/gallery/new")
           button(type="submit") Add Photo
       div
-        form(method="POST" action="user/gallery/" + id + "?_method=DELETE")
+        form(method="POST" action="/user/gallery/" + id + "?_method=DELETE")
             button(type="submit") Delete
     div(class="image")
       div
@@ -23,7 +23,7 @@ html(lang="en")
       div(class="author") Uploaded by: #{author}
       div(class="description") Description: #{description}
     div(class="editInfo")
-      form(type="x-www-form-urlencoded" method="POST" action="/gallery/" + id + "?_method=PUT")
+      form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/" + id + "?_method=PUT")
         h2 Enter the specified info:
         div(style="margin-top: 5px") URL:
           input(type="text" name="url" value=url)

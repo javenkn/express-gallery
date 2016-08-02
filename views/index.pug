@@ -9,15 +9,15 @@ body
   div(class="header") Welcome to my Gallery!
   div(class="homeButtons")
     div
-      form(method="POST" action="/gallery?_method=GET")
+      form(method="GET" action="/gallery")
         button(type="submit") Home
     div
-      form(method="POST" action="user/gallery/new?_method=GET")
+      form(method="GET" action="user/gallery/new")
         button(type="submit") Add Photo
   div(class="gallery")
     each val, index in entries
       div(class="image" style="background-image: url('" + val.url + "')")
         div
-          form(method="POST" action="/gallery/" + val.id + "?_method=GET")
+          form(method="GET" action="user/gallery/" + val.id)
             button(style="background-color: transparent; border: none")
         div(class="author") Uploaded by: #{val.author}

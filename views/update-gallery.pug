@@ -9,10 +9,10 @@ html(lang="en")
     div(class="header") My Gallery
     div(class="homeButtons")
       div
-        form(method="POST" action="/gallery?_method=GET")
+        form(method="GET" action="/gallery")
           button(type="submit") Home
       div
-        form(method="POST" action="/gallery/new?_method=GET")
+        form(method="GET" action="/gallery/new")
           button(type="submit") Add Photo
     h3 This image will be updated to the gallery.
     div(class="image")

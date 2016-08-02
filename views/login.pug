@@ -6,7 +6,15 @@ html(lang="en")
     link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
     link(rel="stylesheet" href="/css/index.css")
   body
-    form(method="POST" action="/user/login")
+    div(class="header") Login
+    div(class="homeButtons")
+      div
+        form(method="GET" action="/gallery")
+          button(type="submit") Home
+      div
+        form(method="GET" action="user/gallery/new")
+          button(type="submit") Add Photo
+    form(method="POST" action="login")
       input(type="text" name="username" placeholder="Username")
       input(type="password" name="password" placeholder="Password")
       input(type="submit" value="Submit")

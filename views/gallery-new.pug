@@ -9,13 +9,13 @@ html(lang="en")
     div(class="header") Add A Photo
     div(class="homeButtons")
       div
-        form(method="POST" action="/gallery?_method=GET")
+        form(method="GET" action="/gallery")
           button(type="submit") Home
       div
-        form(method="POST" action="user/gallery/new?_method=GET")
+        form(method="GET" action="/gallery/new")
           button(type="submit") Add Photo
     div(class="editInfo")
-      form(type="x-www-form-urlencoded" method="POST" action="/gallery/new?_method=POST")
+      form(type="x-www-form-urlencoded" method="POST" action="/user/gallery")
         div
           h2 Enter the specified info:
           div(style="margin-top: 5px") URL:
