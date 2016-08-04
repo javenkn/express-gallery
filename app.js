@@ -49,11 +49,17 @@ app.route('/login')
 
 app
   .get('/', function (req, res) {
+    console.log(req.session.destroy);
+    console.log(req.logout);
     console.log(req.isAuthenticated());
     displayAllPhotos(res);
   })
   .get('/gallery', function (req, res) {
     displayAllPhotos(res);
+  })
+  .get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
   })
   .get('/user/gallery/:id', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){

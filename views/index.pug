@@ -14,6 +14,12 @@ body
     div
       form(method="GET" action="/user/gallery/new")
         button(type="submit") Add Photo
+    div
+      form(method="GET" action="/login")
+        button(type="submit") Log In
+    div
+      form(method="GET" action="/logout")
+        button(type="submit") Log Out
   div(class="gallery")
     each val, index in entries
       div(class="image" style="background-image: url('" + val.url + "')")
