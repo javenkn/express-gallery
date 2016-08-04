@@ -40,12 +40,16 @@ app.use('/user', ensureAuthentication, router(app, express, passport));
 
 app.route('/login')
 .get(function (req, res) {
-    console.log(req);
+    console.log(req.session.successPath);
     res.render('login');
 })
 .post(passport.authenticate('local', { failureRedirect: '/login' }), function (req, res) {
     console.log('Authenticated...');
-    res.redirect(req.session.successPath);
+    if(req.session.successPath){
+      return res.redirect(req.session.successPath);
+    } else {
+      return res.redirect('/');
+    }
 });
 
 app
@@ -57,6 +61,7 @@ app
     displayAllPhotos(res);
   })
   .get('/logout', function (req, res) {
+    delete req.session.successPath;
     req.logout();
     res.redirect('/');
   })
