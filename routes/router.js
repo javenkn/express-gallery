@@ -20,7 +20,7 @@ module.exports = function (app, express, passport){
   .get(function (req, res) {
     res.render('gallery-new');
   })
-  .post(passport.authenticate('local', { successRedirect: '/user/gallery/new', failureRedirect: '/user/login' }), function (req, res, next) {
+  .post(function (req, res, next) {
     console.log('SOMETHING');
     createPhoto(Photo, req, res);
   });
