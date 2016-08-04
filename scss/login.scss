@@ -1,0 +1,30 @@
+.loginForm {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 300px;
+  height: 200px;
+  border: 1px solid black;
+
+  div {
+    margin-bottom: 10px;
+    color: #808080;
+    font-size: 17px;
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    padding: 10px;
+  }
+
+  input {
+    display: block;
+    width: 200px;
+  }
+
+  button {
+    display: block;
+    width: 200px;
+    margin-top: 5px;
+  }
+}
