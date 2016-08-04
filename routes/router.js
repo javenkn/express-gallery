@@ -8,20 +8,12 @@ module.exports = function (app, express, passport){
   var Photo = db.Photo;
   var User = db.User;
 
-  // Middleware
-
   // Authentication Router
-  router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user/login' }), function (req, res) {
-      console.log('Authenticated...');
-      console.log(req.isAuthenticated());
-  });
-
   router.route('/gallery/new')
   .get(function (req, res) {
     res.render('gallery-new');
   })
   .post(function (req, res, next) {
-    console.log('SOMETHING');
     createPhoto(Photo, req, res);
   });
 

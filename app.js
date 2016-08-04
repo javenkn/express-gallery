@@ -37,13 +37,20 @@ app.use(passport.session());
 app.use('/user', ensureAuthentication, router(app, express, passport));
 
 // Routes
+
+app.route('/login')
+.get(function (req, res) {
+    res.render('login');
+})
+.post(passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }), function (req, res) {
+    console.log('Authenticated...');
+    console.log(req.isAuthenticated());
+});
+
 app
   .get('/', function (req, res) {
     console.log(req.isAuthenticated());
     displayAllPhotos(res);
-  })
-  .get('/user/login', function (req, res) {
-    res.render('login');
   })
   .get('/gallery', function (req, res) {
     displayAllPhotos(res);
@@ -82,24 +89,24 @@ function ensureAuthentication (req, res, next) {
     console.log('User is authenticated...');
     return next();
   }
-  return res.redirect('/');
+  return res.redirect('/login');
 }
 
 function displayAllPhotos (res) {
   Photo.findAll({
-        order: 'id ASC'
-      })
-      .then( (photos) => {
-        if(photos) { // if photos exists, get the gallery
-          var galleryOfPhotos = [];
-          photos.forEach(function (element) {
-            galleryOfPhotos.push(element.dataValues);
-          });
-          res.render('index', { entries: galleryOfPhotos });
-        } else {
-          return next('There are no pictures in the gallery.');
-        }
+    order: 'id ASC'
+  })
+  .then( (photos) => {
+    if(photos) { // if photos exists, get the gallery
+      var galleryOfPhotos = [];
+      photos.forEach(function (element) {
+        galleryOfPhotos.push(element.dataValues);
       });
+      res.render('index', { entries: galleryOfPhotos });
+    } else {
+      return next('There are no pictures in the gallery.');
+    }
+  });
 }
 
 module.exports = app;
