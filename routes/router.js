@@ -11,15 +11,17 @@ module.exports = function (app, express, passport){
   // Middleware
 
   // Authentication Router
-  router.post('/login', function (req, res) {
-    console.log('Authenticated...');
+  router.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/user/login' }), function (req, res) {
+      console.log('Authenticated...');
+      console.log(req.isAuthenticated());
   });
 
   router.route('/gallery/new')
   .get(function (req, res) {
     res.render('gallery-new');
   })
-  .post(function (req, res, next) {
+  .post(passport.authenticate('local', { successRedirect: '/user/gallery/new', failureRedirect: '/user/login' }), function (req, res, next) {
+    console.log('SOMETHING');
     createPhoto(Photo, req, res);
   });
 

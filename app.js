@@ -8,6 +8,9 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var router = require('./routes/router');
+var redis = require('connect-redis');
+
+var RedisStore = redis(session);
 var app = express();
 
 // Model declarations
@@ -23,18 +26,20 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(bodyParser.urlencoded ({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(session( {
+  store: new RedisStore({}),
   resave: true,
   saveUninitialized: false,
   secret: 'keyboardcat'
 }));
 
 app.use(passport.initialize());
-app.use('/user', router(app, express, passport));
 app.use(passport.session());
+app.use('/user', router(app, express, passport));
 
 // Routes
 app
   .get('/', function (req, res) {
+    console.log(req.isAuthenticated());
     displayAllPhotos(res);
   })
   .get('/user/login', function (req, res) {
@@ -71,6 +76,14 @@ app
 app.use(function (err, req, res, next) {
       res.render('error', { message: err });
   });
+
+function ensureAuthentication (req, res, next) {
+  if(req.isAuthenticated()) {
+    console.log('User is authenticated...');
+    return next();
+  }
+  return res.redirect('/');
+}
 
 function displayAllPhotos (res) {
   Photo.findAll({
