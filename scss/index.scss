@@ -35,71 +35,77 @@ body {
   border: 2px solid black;
   border-right: 0px;
   border-left: 0px;
+  height: 50px;
 
   div {
+    height: 50px;
     display: inline-block;
-    padding-right: 10px;
-  }
-
-  button {
+    padding: 10px 10px 10px 10px;
+    margin-right: 20px;
     cursor: pointer;
     font-family: 'Oswald', sans-serif;
-    border: none;
     color: white;
     text-shadow: 1px 1px 1px black;
     font-size: 20px;
-    padding: 10px;
-    background-color: #808080;
 
-    &:hover {
-      background-color: #F9FB88;
+    &:hover{
+      height: 47px;
+      border-bottom: 5px solid black;
     }
-  }
 
+  }
 }
 
 .gallery {
-  margin: auto;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  flex: 1 1 500px;
+  width: 70%;
+  margin: auto;
 
-  .image {
-    height: 250px;
-    background-size: 100%;
-    background-color: transparent;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 2px;
-    border: 1px solid black;
-    box-shadow: 1px 1px 1px black;
-    @include respond-to('large'){
-      flex: 0 1 250px;
+  .imageDiv {
+    display: flex;
+    @include respond-to('medium'){
+      flex: 1 1 33%;
     };
     flex: 1 1 100%;
+    justify-content: center;
+    align-items: center;
 
-    button {
-      width: 320px;
-      height: 210px;
+    a {
+      text-decoration: none;
+      @include respond-to('medium'){
+        flex: 1 1 33%;
+      }
+      flex: 1 1 100%;
     }
-  }
-}
 
-.image {
-  text-align: center;
+    .image {
+      display: flex;
+      @include respond-to('medium'){
+        background-size: 100% 100%;
+        height: 200px;
+      }
+      @include respond-to('large'){
+        height: 250px;
+      }
+      height: 200px;
+      background-size: 100% 100%;
+      background-color: white;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 2px;
+      justify-content: center;
+      align-items: flex-end;
 
-  button {
-    cursor: pointer;
-  }
-
-  .author {
-    color: white;
-    text-shadow: 1px 1px 1px black;
-    font-size: 20px;
-  }
-
-  .description {
-    @extend .author
+      .author {
+        font-family: 'Oswald', sans-serif;
+        color: white;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 1px black;
+      }
+    }
   }
 }

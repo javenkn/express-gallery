@@ -23,7 +23,7 @@
     };
     flex: 1 1 100%;
     text-align: center;
-    font-family: Book Antiqua;
+    font-family: 'Oswald', sans-serif;
 
     .image {
       height: 350px;
@@ -31,7 +31,7 @@
       background-size: 100% 100%;
       background-repeat: no-repeat;
       background-position: center;
-      border: 5px solid black;
+      border: 2px solid black;
     }
 
     .author {
@@ -53,8 +53,7 @@
     flex: 0 1 100%;
     display: none;
     flex-flow: column wrap;
-    border: 10px solid #808080;
-    box-shadow: 1px 1px 1px black;
+    border: 4px solid black;
 
     .sideBarHeader {
       color: #808080;
@@ -67,29 +66,28 @@
       text-shadow: 1px 1px 1px black;
     }
 
-    .image {
-      flex: 1 1 300px;
-      height: 200px;
-      background-size: 100%;
-      background-color: transparent;
-      background-position: center;
-      background-repeat: no-repeat;
-      margin: 10px;
-      border: 1px solid black;
-      box-shadow: 1px 1px 1px black;
+    a {
+      text-decoration: none;
+    }
 
-      .image > div {
-        padding: 10px;
-      }
+    .sideImage {
+      display: flex;
+      height: 200px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+      margin: 10px;
+      text-align: center;
+      justify-content: center;
+      align-items: flex-end;
 
       .author {
-        margin-top: 10px;
-        margin-bottom: 5px;
-      }
-
-      button {
-        width: 285px;
-        height: 150px;
+        display: inline-block;
+        color: white;
+        text-shadow: 1px 1px 1px black;
+        font-size: 20px;
+        font-family: 'Oswald', sans-serif;
+        margin-bottom: 10px;
       }
     }
   }
