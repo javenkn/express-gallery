@@ -65,7 +65,7 @@ app
     req.logout();
     res.redirect('/');
   })
-  .get('/user/gallery/:id', function (req, res, next) {
+  .get('/gallery/:id', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       var getPhoto = Photo.findById(req.params.id);
       var getThreePhotos = Photo.findAll({
