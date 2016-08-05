@@ -8,23 +8,18 @@ html(lang="en")
   body
     div(class="header") Add A Photo
     div(class="homeButtons")
-      div
-        form(method="GET" action="/gallery")
-          button(type="submit") Home
-      div
-        form(method="GET" action="/gallery/new")
-          button(type="submit") Add Photo
-    div(class="editInfo")
+      a(href="/gallery")
+        div Home
+      a(href="/user/gallery/new")
+        div Add Photo
+      a(href="/logout")
+        div Log Out
+    div(class="newInfo")
+      div Enter the specified info:
       form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/new")
-        div
-          h2 Enter the specified info:
-          div(style="margin-top: 5px") URL:
-            input(type="text" name="url" style="width: 200px; margin-left: 20px")
-          div(style="margin-top: 5px") Author:
-            input(type="text" name="author" style="width: 186px; margin-left: 20px")
-          div(style="margin-top: 5px") Description:
-            textarea(name="description" style="width: 165px; height: 100px; vertical-align: top; margin-left: 10px")
+        input(type="text" name="url" placeholder="URL")
+        input(type="text" name="author" placeholder="Author")
+        textarea(name="description" placeholder="Description")
         button(type="submit") Submit
-    div(class="cancel")
-      form(method="POST" action="/gallery?_method=GET")
+      form(method="GET" action="/gallery")
         button(type="submit" style="text-align: center") Cancel

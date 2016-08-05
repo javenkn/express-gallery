@@ -8,11 +8,13 @@ head
 body
   div(class="header") My Gallery
   div(class="homeButtons")
-    div
-      form(method="GET" action="/gallery")
-        button(type="submit") Home
-    div
-      form(method="GET" action="/gallery/new")
-        button(type="submit") Add Photo
+    a(href="/gallery")
+      div Home
+    a(href="/user/gallery/new")
+      div Add Photo
+    a(href="/login")
+      div Log In
+    a(href="/logout")
+      div Log Out
   div(class="errorStatus") Error 404!
   div(class="error")= message

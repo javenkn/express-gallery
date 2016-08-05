@@ -8,12 +8,10 @@ html(lang="en")
   body
     div(class="header") Login
     div(class="homeButtons")
-      div
-        form(method="GET" action="/gallery")
-          button(type="submit") Home
-      div
-        form(method="GET" action="user/gallery/new")
-          button(type="submit") Add Photo
+      a(href="/gallery")
+        div Home
+      a(href="/user/gallery/new")
+        div Add Photo
     div(class="loginForm")
       div Enter your username and password.
       form(method="POST" action="/login")

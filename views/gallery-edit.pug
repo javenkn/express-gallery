@@ -8,27 +8,29 @@ html(lang="en")
   body
     div(class="header") Edit Photo
     div(class="homeButtons")
-      div
-        form(method="GET" action="/gallery")
-          button(type="submit") Home
-      div
-        form(method="GET" action="/gallery/new")
-          button(type="submit") Add Photo
-      div
+      a(href="/gallery")
+        div Home
+      a(href="/user/gallery/new")
+        div Add Photo
+      div(class="deleteBtn")
         form(method="POST" action="/user/gallery/" + id + "?_method=DELETE")
-            button(type="submit") Delete
-    div(class="image")
-      div
-        img(src=url)
-      div(class="author") Uploaded by: #{author}
-      div(class="description") Description: #{description}
-    div(class="editInfo")
-      form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/" + id + "?_method=PUT")
-        h2 Enter the specified info:
-        div(style="margin-top: 5px") URL:
+          button(type="submit") Delete
+      a(href="/logout")
+        div Log Out
+    div(id="body")
+      div(class="updateImage")
+        div
+          img(src=url)
+        div(class="author") Uploaded by: #{author}
+        div(class="description") Description: #{description}
+      div(class="editInfo")
+        div(id="editHeader") Enter the specified info:
+        form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/" + id + "?_method=PUT")
+          | URL:
           input(type="text" name="url" value=url)
-        div(style="margin-top: 5px") Author:
+          | Author:
           input(type="text" name="author" value=author)
-        div(style="margin-top: 5px") Description:
-          textarea(name="description")= description
-        button(id="save" type="submit") Save
+          div
+            | Description:
+            textarea(name="description")= description
+          button(id="save" type="submit") Save

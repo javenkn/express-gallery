@@ -8,22 +8,17 @@ head
 body
   div(class="header") Welcome to my Gallery!
   div(class="homeButtons")
-    div
-      form(method="GET" action="/gallery")
-        button(type="submit") Home
-    div
-      form(method="GET" action="/user/gallery/new")
-        button(type="submit") Add Photo
-    div
-      form(method="GET" action="/login")
-        button(type="submit") Log In
-    div
-      form(method="GET" action="/logout")
-        button(type="submit") Log Out
+    a(href="/gallery")
+      div Home
+    a(href="/user/gallery/new")
+      div Add Photo
+    a(href="/login")
+      div Log In
+    a(href="/logout")
+      div Log Out
   div(class="gallery")
     each val, index in entries
-      div(class="image" style="background-image: url('" + val.url + "')")
-        div
-          form(method="GET" action="user/gallery/" + val.id)
-            button(style="background-color: transparent; border: none")
-        div(class="author") Uploaded by: #{val.author}
+      div(class="imageDiv")
+        a(href="/user/gallery/" + val.id)
+          div(class="image" style="background-image: url('" + val.url + "')")
+            div(class="author") Uploaded by: #{val.author}
