@@ -19,6 +19,6 @@ body
   div(class="gallery")
     each val, index in entries
       div(class="imageDiv")
-        a(href="/user/gallery/" + val.id)
+        a(href="/gallery/" + val.id)
           div(class="image" style="background-image: url('" + val.url + "')")
             div(class="author") Uploaded by: #{val.author}
