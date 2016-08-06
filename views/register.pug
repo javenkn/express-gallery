@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    title Express Gallery Login
+    link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
+    link(rel="stylesheet" href="/css/index.css")
+  body
+    div(class="header") Login
+    div(class="homeButtons")
+      a(href="/gallery")
+        div Home
+      a(href="/user/gallery/new")
+        div Add Photo
+    div(class="registerForm")
+      div Create a username and password.
+      form(method="POST" action="/register")
+        input(type="text" name="username" placeholder="Username")
+        input(type="password" name="password" placeholder="Password")
+        button(type="submit") Sign Up
