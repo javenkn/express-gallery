@@ -9,6 +9,7 @@ for(var i = 0; i < 1; i++){
   picObj.description = 'cats';
   picObj.createdAt = new Date();
   picObj.updatedAt = new Date();
+  picObj.user_id = 2;
   arrayOfPictures.push(picObj);
 }
 
