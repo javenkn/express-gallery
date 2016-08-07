@@ -12,6 +12,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       author: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       description: {
@@ -24,7 +25,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
   },
   down: function(queryInterface, Sequelize) {
