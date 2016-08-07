@@ -1,0 +1,12 @@
+// Imports
+@import "login";
+
+.registerForm {
+  @extend .loginForm;
+
+  .errorUser {
+    font-size: 10px;
+    margin-bottom: 5px;
+    padding: 0px;
+  }
+}

@@ -15,7 +15,6 @@
     font-size: 35px;
     font-family: 'Oswald', sans-serif;
     text-align: center;
-    text-decoration: underline;
     padding: 10px;
   }
 
@@ -35,6 +34,23 @@
   button {
     display: block;
     width: 200px;
-    margin-top: 2px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    border: 1px solid black;
+    background-color: white;
+    margin-top: 5px;
+    margin-bottom: 2px;
+  }
+
+  .cancelButton {
+    text-decoration: none;
+
+    div {
+      width: 200px;
+      font-size: 14px;
+      color: black;
+      border: 1px solid black;
+      background-color: white;
+    }
   }
 }
