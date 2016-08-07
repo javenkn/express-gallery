@@ -52,12 +52,33 @@ app.route('/login')
     }
 });
 
+app.route('/register')
+.get(function (req, res) {
+  res.render('register');
+})
+.post(function (req, res, next) {
+  User.findOne({
+    where: {
+      username: req.body.username
+    }
+  })
+  .then( (user) => {
+    if(!user){
+      console.log('created user');
+    } else {
+      res.render('register', { message : 'You cannot have the same username as another user.' });
+    }
+  });
+  // User.create({ username: req.body.username, password: req.body.password });
+});
+
 app
   .get('/', function (req, res) {
     console.log(req.isAuthenticated());
     displayAllPhotos(res);
   })
   .get('/gallery', function (req, res) {
+    delete req.session.successPath;
     displayAllPhotos(res);
   })
   .get('/logout', function (req, res) {
