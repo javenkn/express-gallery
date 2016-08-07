@@ -17,8 +17,8 @@ body
     a(href="/logout")
       div Log Out
   div(class="gallery")
-    each val, index in entries
+    each entry, index in entries
       div(class="imageDiv")
-        a(href="/gallery/" + val.id)
-          div(class="image" style="background-image: url('" + val.url + "')")
-            div(class="author") Uploaded by: #{val.author}
+        a(href="/gallery/" + entry.id)
+          div(class="image" style="background-image: url('" + entry.url + "')")
+            div(class="author") Uploaded by: #{entry.author}
