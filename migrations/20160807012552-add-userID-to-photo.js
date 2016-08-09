@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface
       .addColumn('Photos', 'user_id', {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         foreignKey: true,
         references: {
           model: 'Users',
