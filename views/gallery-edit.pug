@@ -28,8 +28,6 @@ html(lang="en")
         form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/" + id + "?_method=PUT")
           | URL:
           input(type="text" name="url" value=url)
-          | Author:
-          input(type="text" name="author" value=author)
           div
             | Description:
             textarea(name="description")= description

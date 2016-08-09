@@ -22,6 +22,8 @@
   margin: auto;
 
   img {
+    width: 700px;
+    height: 340px;
     background-color: white;
   }
 
@@ -82,5 +84,11 @@
     display: block;
     width: 250px;
     margin-top: 2px;
+    font-family: 'Oswald', sans-serif;
+    color: #808080;
+    border: 1px solid black;
+    font-size: 15px;
+    padding: 5px;
+    background-color: white;
   }
 }
