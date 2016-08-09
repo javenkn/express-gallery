@@ -13,6 +13,8 @@ html(lang="en")
       a(href="/user/gallery/new")
         div Add Photo
     div(class="loginForm")
+      if message
+        div(class="loginMessage") #{message}
       div Enter your username and password.
       form(method="POST" action="/login")
         input(type="text" name="username" placeholder="Username")

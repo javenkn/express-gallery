@@ -6,18 +6,19 @@ h3 {
   padding: 30px;
 }
 
-.image {
-  justify-content: center;
-}
-
-.buttons {
-  display: flex;
-  flex: 1 1 100%;
-  flex-flow: row nowrap;
+.newImage {
+  display: block;
+  margin: auto;
   text-align: center;
-  justify-content: center;
 
-  button {
-    margin-right: 30px;
+  .author {
+    color: #808080;
+    font-family: 'Oswald', sans-serif;
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .description {
+    @extend .author;
   }
 }
