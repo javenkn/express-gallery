@@ -11,13 +11,14 @@ module.exports = function (app, express, passport){
   // Authentication Router
   router.route('/gallery/new')
   .get(function (req, res) {
+    console.log(req.user.dataValues);
     res.render('gallery-new');
   })
-  .post(function (req, res, next) {
+  .post(function (req, res, next) { // through form
     createPhoto(Photo, req, res);
   });
 
-  router.post('/gallery', function (req, res) {
+  router.post('/gallery', function (req, res) { // through postman
     createPhoto(Photo, req, res);
   });
 
@@ -78,7 +79,7 @@ module.exports = function (app, express, passport){
 };
 
 function createPhoto (Photo, req, res) {
-  Photo.create( { url: req.body.url, author: req.body.author, description: req.body.description} )
+  Photo.create( { url: req.body.url, description: req.body.description, user_id: req.user.dataValues.id } )
   .then( (photo) => {
     res.render('add-gallery', photo.dataValues);
   });
@@ -88,7 +89,7 @@ function updatePhoto (Photo, photoID, req, res, next) {
   Photo.findById(req.params.id)
     .then( (photo) => {
       if(photo) { // if photo exists, update the photo
-        Photo.update( { url: req.body.url, author: req.body.author, description: req.body.description }, {
+        Photo.update( { url: req.body.url, description: req.body.description }, {
           where: {
             id: req.params.id
           }

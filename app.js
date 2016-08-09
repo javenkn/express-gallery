@@ -64,12 +64,14 @@ app.route('/register')
   })
   .then( (user) => {
     if(!user){
-      console.log('created user');
+      User.create({ username: req.body.username, password: req.body.password })
+      .then((user) => {
+        res.render('login', { message : 'Please login to authenticate your account.'});
+      });
     } else {
       res.render('register', { message : 'You cannot have the same username as another user.' });
     }
   });
-  // User.create({ username: req.body.username, password: req.body.password });
 });
 
 app
