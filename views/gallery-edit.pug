@@ -12,9 +12,6 @@ html(lang="en")
         div Home
       a(href="/user/gallery/new")
         div Add Photo
-      div(class="deleteBtn")
-        form(method="POST" action="/user/gallery/" + id + "?_method=DELETE")
-          button(type="submit") Delete
       a(href="/logout")
         div Log Out
     div(id="body")
@@ -32,3 +29,6 @@ html(lang="en")
             | Description:
             textarea(name="description")= description
           button(id="save" type="submit") Save
+        div(class="deleteBtn")
+          form(method="POST" action="/user/gallery/" + id + "?_method=DELETE")
+            button(type="submit") Delete Photo

@@ -1,11 +1,15 @@
-// Imports
+// Partials
 @import "partials/_general_styles";
 @import "partials/_clearfix";
 @import "partials/_reset";
+
+// Imports
 @import "add-gallery";
 @import "gallery-edit";
 @import "get-gallery";
 @import "gallery-new";
+@import "update-gallery";
+@import "gallery-delete";
 @import "error";
 @import "login";
 @import "register";
