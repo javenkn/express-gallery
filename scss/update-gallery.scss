@@ -1,0 +1,22 @@
+.updatedImage {
+  display: block;
+  margin: auto;
+  text-align: center;
+
+  img {
+    width: 550px;
+    height: 250px;
+    background-color: white;
+  }
+
+  .author {
+    color: #808080;
+    font-family: 'Oswald', sans-serif;
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .description {
+    @extend .author;
+  }
+}
