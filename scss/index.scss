@@ -76,6 +76,17 @@ body {
   width: 84%;
   margin: auto;
 
+  &:hover > .imageDiv{
+    opacity: 0.5;
+  }
+
+  &:hover > .imageDiv:hover{
+    opacity: 1;
+    .author {
+      display: block;
+    }
+  }
+
   .imageDiv {
     margin: 1px;
     padding: 1px;
@@ -107,6 +118,7 @@ body {
       justify-content: center;
 
       .author {
+        display: none;
         font-family: 'Oswald', sans-serif;
         color: white;
         font-size: 18px;
