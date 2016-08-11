@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         models.Photo.belongsTo(models.User, {
           foreignKey: 'user_id',
-          targetKey: 'id'
+          targetKey: 'id',
+          as: 'user'
         });
       }
     }
