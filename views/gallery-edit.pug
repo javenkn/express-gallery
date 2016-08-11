@@ -16,6 +16,8 @@ block content
       div(class="author") Uploaded by: #{user.username}
       div(class="description") Description: #{description}
     div(class="editInfo")
+      if message
+        div(class="editMessage") #{message}
       div(id="editHeader") Enter the specified info:
       form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/" + id + "?_method=PUT")
         | URL:
