@@ -21,4 +21,4 @@ body
       div(class="imageDiv")
         a(href="/gallery/" + entry.id)
           div(class="image" style="background-image: url('" + entry.url + "')")
-            div(class="author") Uploaded by: #{entry.user_id}
+            div(class="author") Uploaded by: #{entry.user.username}

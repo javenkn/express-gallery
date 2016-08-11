@@ -90,12 +90,23 @@ app
   })
   .get('/gallery/:id', function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
-      var getPhoto = Photo.findById(req.params.id);
+      var getPhoto = Photo.findById(req.params.id, {
+        include: [{
+          model: User,
+          as: 'user',
+          required: true
+        }]
+      });
       var getThreePhotos = Photo.findAll({
         limit: 3,
         where: {
           id: { ne: req.params.id }
-        }
+        },
+        include: [{
+          model: User,
+          as: 'user',
+          required: true
+        }]
       });
       Promise.all([getPhoto, getThreePhotos])
       .then( (results) => {
@@ -129,15 +140,16 @@ function ensureAuthentication (req, res, next) {
 
 function displayAllPhotos (res) {
   Photo.findAll({
-    order: 'id ASC'
+    order: 'id ASC',
+    include: [{
+      model: User,
+      as: 'user',
+      required: true
+    }]
   })
   .then( (photos) => {
     if(photos) { // if photos exists, get the gallery
-      var galleryOfPhotos = [];
-      photos.forEach(function (element) {
-        galleryOfPhotos.push(element.dataValues);
-      });
-      res.render('index', { entries: galleryOfPhotos });
+      res.render('index', { entries: photos });
     } else {
       return next('There are no pictures in the gallery.');
     }

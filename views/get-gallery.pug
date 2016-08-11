@@ -19,7 +19,7 @@ html(lang="en")
     div(class="bodyGallery")
       div(class="idImage")
         div(class="image" style="background-image: url('" + photo.url + "')")
-        div(class="author") Uploaded by: #{photo.author}
+        div(class="author") Uploaded by: #{photo.user.username}
         div(class="description") Description: #{photo.description}
         div(id="editButton")
           a(href="/user/gallery/" + photo.id + "/edit")
@@ -29,4 +29,4 @@ html(lang="en")
         each val, index in entries
           a(href="/gallery/" + val.id)
             div(class="sideImage" style="background-image: url('" + val.url + "')")
-              div(class="author") Uploaded by: #{val.author}
+              div(class="author") Uploaded by: #{val.user.username}
