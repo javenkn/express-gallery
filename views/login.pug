@@ -1,19 +1,19 @@
 extends _layout
 
 block content
-    div(class="header") Login
-    div(class="homeButtons")
-      a(href="/gallery")
-        div Home
-      a(href="/user/gallery/new")
-        div Add Photo
-    div(class="loginForm")
-      if message
-        div(class="loginMessage") #{message}
-      div Enter your username and password.
-      form(method="POST" action="/login")
-        input(type="text" name="username" placeholder="Username")
-        input(type="password" name="password" placeholder="Password")
-        button(type="submit") Sign In
-      a(href="/register")
-        div Register
+  div(class="header") Login
+  div(class="homeButtons")
+    a(href="/gallery")
+      div Home
+    a(href="/user/gallery/new")
+      div Add Photo
+  div(class="loginForm")
+    if message
+      div(class="loginMessage") #{message}
+    div Enter your username and password.
+    form(method="POST" action="/login")
+      input(type="text" name="username" placeholder="Username")
+      input(type="password" name="password" placeholder="Password")
+      button(type="submit") Sign In
+    a(href="/register")
+      div Register

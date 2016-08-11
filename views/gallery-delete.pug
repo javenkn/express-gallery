@@ -1,16 +1,16 @@
 extends _layout
 
 block content
-    div(class="header") My Gallery
-    div(class="homeButtons")
-      a(href="/gallery")
-        div Home
-      a(href="/user/gallery/new")
-        div Add Photo
-      a(href="/logout")
-        div Log Out
-    h3 This image will be deleted from the gallery.
-    div(class="deletedImage")
-      img(src=url)
-      p(class="author") Uploaded by: #{user.username}
-      p(class="description") Description: #{description}
+  div(class="header") My Gallery
+  div(class="homeButtons")
+    a(href="/gallery")
+      div Home
+    a(href="/user/gallery/new")
+      div Add Photo
+    a(href="/logout")
+      div Log Out
+  h3 This image will be deleted from the gallery.
+  div(class="deletedImage")
+    img(src=url)
+    p(class="author") Uploaded by: #{user.username}
+    p(class="description") Description: #{description}

@@ -1,29 +1,29 @@
 extends _layout
 
 block content
-    div(class="header") Edit Photo
-    div(class="homeButtons")
-      a(href="/gallery")
-        div Home
-      a(href="/user/gallery/new")
-        div Add Photo
-      a(href="/logout")
-        div Log Out
-    div(id="body")
-      div(class="updateImage")
+  div(class="header") Edit Photo
+  div(class="homeButtons")
+    a(href="/gallery")
+      div Home
+    a(href="/user/gallery/new")
+      div Add Photo
+    a(href="/logout")
+      div Log Out
+  div(id="body")
+    div(class="updateImage")
+      div
+        img(src=url)
+      div(class="author") Uploaded by: #{user.username}
+      div(class="description") Description: #{description}
+    div(class="editInfo")
+      div(id="editHeader") Enter the specified info:
+      form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/" + id + "?_method=PUT")
+        | URL:
+        input(type="text" name="url" value=url)
         div
-          img(src=url)
-        div(class="author") Uploaded by: #{user.username}
-        div(class="description") Description: #{description}
-      div(class="editInfo")
-        div(id="editHeader") Enter the specified info:
-        form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/" + id + "?_method=PUT")
-          | URL:
-          input(type="text" name="url" value=url)
-          div
-            | Description:
-            textarea(name="description")= description
-          button(id="save" type="submit") Save
-        div(class="deleteBtn")
-          form(method="POST" action="/user/gallery/" + id + "?_method=DELETE")
-            button(type="submit") Delete Photo
+          | Description:
+          textarea(name="description")= description
+        button(id="save" type="submit") Save
+      div(class="deleteBtn")
+        form(method="POST" action="/user/gallery/" + id + "?_method=DELETE")
+          button(type="submit") Delete Photo

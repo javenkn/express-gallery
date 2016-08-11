@@ -1,27 +1,27 @@
 extends _layout
 
 block content
-    div(class="header") My Gallery
-    div(class="homeButtons")
-      a(href="/gallery")
-        div Home
-      a(href="/user/gallery/new")
-        div Add Photo
-      a(href="/login")
-        div Log In
-      a(href="/logout")
-        div Log Out
-    div(class="bodyGallery")
-      div(class="idImage")
-        div(class="image" style="background-image: url('" + photo.url + "')")
-        div(class="author") Uploaded by: #{photo.user.username}
-        div(class="description") Description: #{photo.description}
-        div(id="editButton")
-          a(href="/user/gallery/" + photo.id + "/edit")
-            div Edit Image
-      div(class="sideBarImages")
-        div(class="sideBarHeader") Other Images
-        each val, index in entries
-          a(href="/gallery/" + val.id)
-            div(class="sideImage" style="background-image: url('" + val.url + "')")
-              div(class="author") Uploaded by: #{val.user.username}
+  div(class="header") My Gallery
+  div(class="homeButtons")
+    a(href="/gallery")
+      div Home
+    a(href="/user/gallery/new")
+      div Add Photo
+    a(href="/login")
+      div Log In
+    a(href="/logout")
+      div Log Out
+  div(class="bodyGallery")
+    div(class="idImage")
+      div(class="image" style="background-image: url('" + photo.url + "')")
+      div(class="author") Uploaded by: #{photo.user.username}
+      div(class="description") Description: #{photo.description}
+      div(id="editButton")
+        a(href="/user/gallery/" + photo.id + "/edit")
+          div Edit Image
+    div(class="sideBarImages")
+      div(class="sideBarHeader") Other Images
+      each val, index in entries
+        a(href="/gallery/" + val.id)
+          div(class="sideImage" style="background-image: url('" + val.url + "')")
+            div(class="author") Uploaded by: #{val.user.username}

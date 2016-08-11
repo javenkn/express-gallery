@@ -1,20 +1,20 @@
 extends _layout
 
 block content
-    div(class="header") Add A Photo
-    div(class="homeButtons")
-      a(href="/gallery")
-        div Home
-      a(href="/user/gallery/new")
-        div Add Photo
-      a(href="/logout")
-        div Log Out
-    div(class="newInfo")
-      div Enter the specified info:
-      form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/new")
-        input(type="text" name="url" placeholder="URL")
-        //- input(type="text" name="author" placeholder="Author")
-        textarea(name="description" placeholder="Description")
-        button(type="submit") Submit
-      a(class="cancelButton" href="/gallery")
-        div Cancel
+  div(class="header") Add A Photo
+  div(class="homeButtons")
+    a(href="/gallery")
+      div Home
+    a(href="/user/gallery/new")
+      div Add Photo
+    a(href="/logout")
+      div Log Out
+  div(class="newInfo")
+    div Enter the specified info:
+    form(type="x-www-form-urlencoded" method="POST" action="/user/gallery/new")
+      input(type="text" name="url" placeholder="URL")
+      //- input(type="text" name="author" placeholder="Author")
+      textarea(name="description" placeholder="Description")
+      button(type="submit") Submit
+    a(class="cancelButton" href="/gallery")
+      div Cancel
