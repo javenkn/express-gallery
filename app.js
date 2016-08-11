@@ -26,7 +26,9 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(bodyParser.urlencoded ({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(session( {
-  store: new RedisStore({}),
+  store: new RedisStore({
+    ttl: 60
+  }),
   resave: true,
   saveUninitialized: false,
   secret: 'keyboardcat'
