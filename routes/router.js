@@ -1,12 +1,12 @@
+// Model declarations
+var db = require('../models');
+var Photo = db.Photo;
+var User = db.User;
+
 module.exports = function (app, express, passport){
 
   // Requires
   var router = express.Router();
-
-  // Model declarations
-  var db = require('../models');
-  var Photo = db.Photo;
-  var User = db.User;
 
   // Authentication Router
   router.route('/gallery/new')
@@ -15,11 +15,11 @@ module.exports = function (app, express, passport){
     res.render('gallery-new');
   })
   .post(function (req, res, next) { // through form
-    createPhoto(Photo, req, res);
+    createPhoto(req, res);
   });
 
   router.post('/gallery', function (req, res) { // through postman
-    createPhoto(Photo, req, res);
+    createPhoto(req, res);
   });
 
   router.route('/gallery/:id/')
@@ -31,13 +31,19 @@ module.exports = function (app, express, passport){
     }
   })
   .put(function (req, res, next) {
-    updatePhoto(Photo, req.params.id, req, res, next);
+    updatePhoto(req, res, next);
   })
   .delete(function (req, res, next) {
-    Photo.findById(req.params.id)
+    Photo.findById(req.params.id, {
+      include: [{
+        model: User,
+        as: 'user',
+        required: true
+      }]
+    })
     .then( (photo) => {
       if(photo) { // if photo exists, delete photo
-        res.render('gallery-delete', photo.dataValues);
+        res.render('gallery-delete', photo.toJSON());
         Photo.destroy({
           where: {
             id: req.params.id
@@ -58,34 +64,42 @@ module.exports = function (app, express, passport){
     }
   })
   .get(function (req, res, next) {
-    Photo.findById(req.params.id)
+    console.log(req.params.id);
+    Photo.findById(req.params.id, {
+        include: [{
+          model: User,
+          as: 'user',
+          required: true
+        }]
+    })
       .then( (photo) => {
         if(photo){ // if photo exists, get the picture
-          res.render('gallery-edit', photo.dataValues);
+          res.render('gallery-edit', photo.toJSON());
         } else { // if photo doesn't exist
           return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
         }
       });
   })
   .post(function (req, res, next) {
-    updatePhoto(req.params.id, req, res, next);
+    updatePhoto(req, res, next);
   });
 
   router.use(function (err, req, res, next) {
-      res.render('error', { message: err });
+    res.render('error', { message: err });
   });
 
   return router;
 };
 
-function createPhoto (Photo, req, res) {
-  Photo.create( { url: req.body.url, description: req.body.description, user_id: req.user.dataValues.id } )
+function createPhoto (req, res) {
+  Photo.create( { url: req.body.url, description: req.body.description, user_id: req.user.id } )
   .then( (photo) => {
-    res.render('add-gallery', photo.dataValues);
+    photo.dataValues.username = req.user.username;
+    res.render('add-gallery', photo.toJSON());
   });
 }
 
-function updatePhoto (Photo, photoID, req, res, next) {
+function updatePhoto (req, res, next) {
   Photo.findById(req.params.id)
     .then( (photo) => {
       if(photo) { // if photo exists, update the photo
@@ -95,9 +109,15 @@ function updatePhoto (Photo, photoID, req, res, next) {
           }
         })
         .then( () => {
-          Photo.findById(req.params.id)
+          Photo.findById(req.params.id, {
+            include: [{
+              model: User,
+              as: 'user',
+              required: true
+            }]
+          })
           .then( (photo) => {
-            res.render('update-gallery', photo.dataValues);
+            res.render('update-gallery', photo.toJSON());
           });
         });
       } else { // if photo doesn't exist
