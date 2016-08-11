@@ -9,9 +9,8 @@ module.exports = function (app, express, passport){
   var router = express.Router();
 
   // Authentication Router
-  router.route('/gallery/new')
+  router.route('/gallery/new') // creating new gallery
   .get(function (req, res) {
-    console.log(req.user.dataValues);
     res.render('gallery-new');
   })
   .post(function (req, res, next) { // through form
@@ -22,7 +21,7 @@ module.exports = function (app, express, passport){
     createPhoto(req, res);
   });
 
-  router.route('/gallery/:id/')
+  router.route('/gallery/:id/') // changing an individual gallery
   .all(function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       next();
@@ -55,7 +54,7 @@ module.exports = function (app, express, passport){
     });
   });
 
-  router.route('/gallery/:id/edit')
+  router.route('/gallery/:id/edit') // editing a single gallery
   .all(function (req, res, next) {
     if(!isNaN(parseInt(req.params.id))){
       next();

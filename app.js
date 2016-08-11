@@ -43,13 +43,21 @@ app.route('/login')
     console.log(req.session.successPath);
     res.render('login');
 })
-.post(passport.authenticate('local', { failureRedirect: '/login' }), function (req, res) {
-    console.log('Authenticated...');
-    if(req.session.successPath){
-      return res.redirect(req.session.successPath);
-    } else {
-      return res.redirect('/');
+.post(function (req, res, next) {
+  passport.authenticate('local', function (err, user) {
+    if(err) { return next(err); }
+    if(!user) {
+      return res.render('login', { message : 'Invalid username/password. Please try again.' });
     }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      if(req.session.successPath){
+        return res.redirect(req.session.successPath);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  })(req, res, next);
 });
 
 app.route('/register')
@@ -75,20 +83,20 @@ app.route('/register')
 });
 
 app
-  .get('/', function (req, res) {
-    console.log(req.isAuthenticated());
+  .get('/', function (req, res) { // index
+    console.log(req.isAuthenticated()); // checks if user is authenticated
     displayAllPhotos(res);
   })
-  .get('/gallery', function (req, res) {
+  .get('/gallery', function (req, res) { // gallery
     delete req.session.successPath;
     displayAllPhotos(res);
   })
-  .get('/logout', function (req, res) {
+  .get('/logout', function (req, res) { // logout
     delete req.session.successPath;
     req.logout();
     res.redirect('/');
   })
-  .get('/gallery/:id', function (req, res, next) {
+  .get('/gallery/:id', function (req, res, next) { // individual gallery
     if(!isNaN(parseInt(req.params.id))){
       var getPhoto = Photo.findById(req.params.id, {
         include: [{
