@@ -13,7 +13,7 @@ module.exports = function (app, express, passport){
   .get(function (req, res) {
     res.render('gallery-new');
   })
-  .post(function (req, res, next) { // through form
+  .post(function (req, res, next) { // through input form
     createPhoto(req, res);
   });
 
@@ -29,10 +29,10 @@ module.exports = function (app, express, passport){
       return next(req.params.id + ' does not exist.');
     }
   })
-  .put(function (req, res, next) {
+  .put(function (req, res, next) { // editing content of a photo
     updatePhoto(req, res, next);
   })
-  .delete(function (req, res, next) {
+  .delete(function (req, res, next) { // deleting a photo
     Photo.findById(req.params.id, {
       include: [{
         model: User,
@@ -42,12 +42,18 @@ module.exports = function (app, express, passport){
     })
     .then( (photo) => {
       if(photo) { // if photo exists, delete photo
-        res.render('gallery-delete', photo.toJSON());
-        Photo.destroy({
-          where: {
-            id: req.params.id
-          }
-        });
+        if(photo.user.username === req.user.username) {
+        // check if req user is the same as the photo user
+          res.render('gallery-delete', photo.toJSON());
+          Photo.destroy({
+            where: {
+              id: req.params.id
+            }
+          });
+        } else { // req user isn't the same as the photo user
+          photo.dataValues.message = 'You do not have permission to delete this photo.';
+          res.render('gallery-edit', photo.toJSON());
+        }
       } else { // if photo doesn't exist
         return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
       }
@@ -63,23 +69,22 @@ module.exports = function (app, express, passport){
     }
   })
   .get(function (req, res, next) {
-    console.log(req.params.id);
     Photo.findById(req.params.id, {
-        include: [{
-          model: User,
-          as: 'user',
-          required: true
-        }]
+      include: [{
+        model: User,
+        as: 'user',
+        required: true
+      }]
     })
-      .then( (photo) => {
-        if(photo){ // if photo exists, get the picture
-          res.render('gallery-edit', photo.toJSON());
-        } else { // if photo doesn't exist
-          return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
-        }
-      });
+    .then( (photo) => {
+      if(photo){ // if photo exists, get the picture
+        res.render('gallery-edit', photo.toJSON());
+      } else { // if photo doesn't exist
+        return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
+      }
+    });
   })
-  .post(function (req, res, next) {
+  .post(function (req, res, next) { // through postman
     updatePhoto(req, res, next);
   });
 
@@ -99,26 +104,38 @@ function createPhoto (req, res) {
 }
 
 function updatePhoto (req, res, next) {
-  Photo.findById(req.params.id)
+  Photo.findById(req.params.id, {
+      include: [{
+        model: User,
+        as: 'user',
+        required: true
+      }]
+    })
     .then( (photo) => {
       if(photo) { // if photo exists, update the photo
-        Photo.update( { url: req.body.url, description: req.body.description }, {
-          where: {
-            id: req.params.id
-          }
-        })
-        .then( () => {
-          Photo.findById(req.params.id, {
-            include: [{
-              model: User,
-              as: 'user',
-              required: true
-            }]
+        if(photo.user.username === req.user.username) {
+          // check if req user is the same as the photo user
+          Photo.update( { url: req.body.url, description: req.body.description }, {
+            where: {
+              id: req.params.id
+            }
           })
-          .then( (photo) => {
-            res.render('update-gallery', photo.toJSON());
+          .then( () => {
+            Photo.findById(req.params.id, {
+              include: [{
+                model: User,
+                as: 'user',
+                required: true
+              }]
+            })
+            .then( (photo) => {
+              res.render('update-gallery', photo.toJSON());
+            });
           });
-        });
+        } else { // req user isn't the same as the photo user
+          photo.dataValues.message = 'You do not have permission to update this photo.';
+          res.render('gallery-edit', photo.toJSON());
+        }
       } else { // if photo doesn't exist
         return next('There is no Gallery Photo of ID: ' + req.params.id + '.');
       }
