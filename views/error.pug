@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-html(lang="en")
-head
-  meta(charset="UTF-8")
-  title Express Gallery
-  link(href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css')
-  link(rel="stylesheet" href="/css/index.css")
-body
-  div(class="header") My Gallery
-  div(class="homeButtons")
-    a(href="/gallery")
-      div Home
-    a(href="/user/gallery/new")
-      div Add Photo
-    a(href="/login")
-      div Log In
-    a(href="/logout")
-      div Log Out
-  div(class="errorStatus") Error 404!
-  div(class="error")= message
+extends _layout
+
+block content
+    div(class="header") My Gallery
+    div(class="homeButtons")
+      a(href="/gallery")
+        div Home
+      a(href="/user/gallery/new")
+        div Add Photo
+      a(href="/login")
+        div Log In
+      a(href="/logout")
+        div Log Out
+    div(class="errorStatus") Error 404!
+    div(class="error")= message
