@@ -2,22 +2,24 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
+    var db = require('../models');
+    var secret = require('../config/secret.json');
     return queryInterface.bulkInsert('Users', [
     {
       username: 'J',
-      password : 'password',
+      password : db.User.hashPassword(secret.Salt + 'password'),
       createdAt : new Date(),
       updatedAt : new Date()
     },
     {
       username: 'lol',
-      password: 'lololol',
+      password: db.User.hashPassword(secret.Salt + 'lololol'),
       createdAt : new Date(),
       updatedAt : new Date()
     },
     {
       username: 'Photographer',
-      password: 'photo',
+      password: db.User.hashPassword(secret.Salt + 'photo'),
       createdAt : new Date(),
       updatedAt : new Date()
     }

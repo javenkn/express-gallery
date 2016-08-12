@@ -1,4 +1,4 @@
-module.exports = function(passport, LocalStrategy, User){
+module.exports = function(passport, LocalStrategy, User, secret){
 
   passport.serializeUser(function (user, done) {
     var userID = user.dataValues.id;
@@ -21,7 +21,7 @@ module.exports = function(passport, LocalStrategy, User){
   passport.use(new LocalStrategy(
     function(user, pw, done) {
       User.findOne({
-        where: { username : user, password: pw}
+        where: { username : user, password: User.hashPassword(secret.Salt + pw) }
       })
       .then( (userFound) => {
         if(userFound){

@@ -9,6 +9,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var router = require('./routes/router');
 var redis = require('connect-redis');
+var secret = require('./config/secret.json');
 
 var RedisStore = redis(session);
 var app = express();
@@ -17,7 +18,7 @@ var app = express();
 var db = require('./models');
 var Photo = db.Photo;
 var User = db.User;
-require('./config/passport.js')(passport, LocalStrategy, User);
+require('./config/passport.js')(passport, LocalStrategy, User, secret);
 
 // Middleware
 app.set('views', path.resolve(__dirname, 'views'));
@@ -31,7 +32,7 @@ app.use(session( {
   }),
   resave: true,
   saveUninitialized: false,
-  secret: 'keyboardcat'
+  secret: secret.Secret,
 }));
 
 app.use(passport.initialize());
@@ -74,7 +75,7 @@ app.route('/register')
   })
   .then( (user) => {
     if(!user){
-      User.create({ username: req.body.username, password: req.body.password })
+      User.create({ username: req.body.username, password: User.hashPassword(secret.Salt + password) })
       .then((user) => {
         res.render('login', { message : 'Please login to authenticate your account.'});
       });
